@@ -33,9 +33,23 @@
 
 /* MEDIA */
 
-@media screen and (orientation: landscape) {}
+@media screen and (orientation: landscape) {
+    .explanation {
+        bottom: 0;
+    }
+    .customization {
+        top: 0;
+    }
+}
 
-@media screen and (orientation: portrait) {}
+@media screen and (orientation: portrait) {
+    .explanation {
+        top: 0;
+    }
+    .customization {
+        bottom: 0;
+    }
+}
 
 /* GENERAL */
 
@@ -53,26 +67,52 @@ h2 {
     font-weight: bold;
 }
 
-/* CONTENT */
+label {
+    padding-left: $padding-minimal;
+    font-size: $font-size-list;
+}
+
+li {
+    padding-bottom: $padding-minimal;
+    list-style: none;
+    &:last-child {
+        padding-bottom: 0;
+    }
+}
 
 /* CONTENT */
 
 /* CONTENT */
+
+/* CONTENT */
+
+.explanation {
+    @include center-x(absolute);
+    @include center-flex(nowrap);
+    width: 90rem;
+    height: 25rem;
+}
+
+.title {
+    width: 100%;
+    font-size: $font-size-title;
+    text-align: center;
+}
+
+.customization {
+    @include center-x(absolute);
+    width: 90rem;
+    height: 25rem;
+}
+
+.radio-list {
+    display: inline-block;
+}
 
 .car {
     @include center(absolute);
     width: 90rem;
     height: 50rem;
-}
-
-#car-exterior,
-#car-interior {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-#car-exterior {
     &>* {
         position: absolute;
         background-color: $color-blue;
@@ -109,6 +149,9 @@ h2 {
         background-color: $color-white;
         border: $border-width-car solid $color-black;
         z-index: $depth-car-details;
+        &>* {
+            border-radius: $border-radius-default;
+        }
         &.car-window--back {
             left: 29.5%;
         }
@@ -127,10 +170,10 @@ h2 {
                 border-left: $border-width-car solid $color-black;
             }
             &.car-window-angled--front {
-                top: 1%;
+                top: 2%;
                 right: -43%;
-                width: 45%;
-                height: 79.5%;
+                width: 50%;
+                height: 82.5%;
                 transform: rotate(-40deg);
                 border-right: $border-width-car solid $color-black;
             }
@@ -140,10 +183,11 @@ h2 {
             bottom: -1rem;
             background-color: $color-white;
             border-bottom: $border-width-car solid $color-black;
+            z-index: $depth-car-details;
             &.car-window-connector--back {
                 left: -76.5%;
                 width: 70%;
-                height: 40%;
+                height: 47.5%;
                 border-left: $border-width-car solid $color-black;
             }
             &.car-window-connector--front {
@@ -192,18 +236,23 @@ h2 {
             width: 21%;
         }
         &.car-door--front {
-            top: 17.5%;
+            top: 18.5%;
             right: 31.5%;
             width: 19.5%;
         }
         &>.car-door-handle {
             position: absolute;
-            top: 30%;
             left: 10%;
-            width: 25%;
-            height: 7.5%;
+            width: 5rem;
+            height: 2rem;
             border-radius: 0.25rem;
             background-color: $color-black;
+            &.car-door-handle--back {
+                top: 30%;
+            }
+            &.car-door-handle--front {
+                top: 26%;
+            }
         }
     }
     &>.car-bumper {
@@ -245,6 +294,66 @@ h2 {
             display: block;
             padding-bottom: 100%;
             content: "";
+        }
+    }
+    &>.rim-design {
+        display: none;
+        bottom: 4.25%;
+        width: 15%;
+        border-radius: 50%;
+        background-color: $color-white;
+        &>* {
+            border-radius: $border-radius-default;
+        }
+        &.rim-design--active {
+            display: block;
+        }
+        &.rim-design--back {
+            left: 17.5%;
+        }
+        &.rim-design--front {
+            right: 12.5%;
+        }
+        &.rim-design:after {
+            display: block;
+            padding-bottom: 100%;
+            content: "";
+        }
+        &.rim-design--biblical {
+            &>.rim-design--biblical-vertical {
+                @include center-x(absolute);
+                top: -5%;
+                width: 1rem;
+                height: 110%;
+                background-color: $color-black;
+            }
+            &>.rim-design--biblical-horizontal {
+                position: absolute;
+                top: 3rem;
+                width: 100%;
+                height: 1rem;
+                background-color: $color-black;
+            }
+        }
+        &.rim-design--spiral {
+            &>.rim-design--spiral-30 {
+                @include rim-design--spiral-spoke(30deg);
+            }
+            &>.rim-design--spiral-60 {
+                @include rim-design--spiral-spoke(60deg);
+            }
+            &>.rim-design--spiral-90 {
+                @include rim-design--spiral-spoke(90deg);
+            }
+            &>.rim-design--spiral-120 {
+                @include rim-design--spiral-spoke(120deg);
+            }
+            &>.rim-design--spiral-150 {
+                @include rim-design--spiral-spoke(150deg);
+            }
+            &>.rim-design--spiral-180 {
+                @include rim-design--spiral-spoke(180deg);
+            }
         }
     }
 }

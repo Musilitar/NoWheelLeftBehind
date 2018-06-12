@@ -1,19 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1" />
-    <meta name="description" content="Customize your car and leave no wheel behind!" />
-    <title>No Wheel Left Behind</title>
-    <link rel="preload" href="font.woff2" as="font" crossorigin="anonymous">
-    <link rel="stylesheet" href="app.css">
-    <script src="app.js" charset="utf-8" defer></script>
-</head>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1" />
+        <meta name="description" content="Customize your car and leave no wheel behind!" />
+        <title>No Wheel Left Behind</title>
+        <link rel="preload" href="font.woff2" as="font" crossorigin="anonymous">
+        <link rel="stylesheet" href="app.css">
+        <script src="app.js" charset="utf-8" defer></script>
+    </head>
 
-<body>
-    <div class="car">
-        <div id="car-exterior">
+    <body>
+        <section class="customization">
+            <div class="customize-rim-design">
+                <ul class="radio-list">
+                    <li>
+                        <input id="rimDesignPlain" type="radio" name="rimDesign" value="rim-design--plain">
+                        <label for="rimDesignPlain">Plain</label>
+                    </li>
+                    <li>
+                        <input id="rimDesignBiblical" type="radio" name="rimDesign" value="rim-design--biblical">
+                        <label for="rimDesignBiblical">Biblical</label>
+                    </li>
+                    <li>
+                        <input id="rimDesignSpiral" type="radio" name="rimDesign" value="rim-design--spiral">
+                        <label for="rimDesignSpiral">Spiral</label>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section class="explanation">
+            <h1 class="title">NO WHEEL LEFT BEHIND</h1>
+        </section>
+        <section class="car">
             <div class="car-roof car-roof--back"></div>
             <div class="car-window car-window--back">
                 <div class="car-window-connector car-window-connector--back"></div>
@@ -29,18 +49,42 @@
             <div class="car-light car-light--back"></div>
             <div class="car-light car-light--front"></div>
             <div class="car-door car-door--back">
-                <div class="car-door-handle"></div>
+                <div class="car-door-handle car-door-handle--back"></div>
             </div>
             <div class="car-door car-door--front">
-                <div class="car-door-handle"></div>
+                <div class="car-door-handle car-door-handle--front"></div>
             </div>
             <div class="car-bumper"></div>
             <div class="car-wheel car-wheel--back"></div>
             <div class="car-wheel-rim car-wheel-rim--back"></div>
             <div class="car-wheel car-wheel--front"></div>
             <div class="car-wheel-rim car-wheel-rim--front"></div>
-        </div>
-    </div>
-</body>
+            <div class="rim-design rim-design--back rim-design--biblical">
+                <div class="rim-design--biblical-vertical"></div>
+                <div class="rim-design--biblical-horizontal"></div>
+            </div>
+            <div class="rim-design rim-design--front rim-design--biblical">
+                <div class="rim-design--biblical-vertical"></div>
+                <div class="rim-design--biblical-horizontal"></div>
+            </div>
+            <div class="rim-design rim-design--back rim-design--spiral">
+                <div class="rim-design--spiral-30"></div>
+                <div class="rim-design--spiral-60"></div>
+                <div class="rim-design--spiral-90"></div>
+                <div class="rim-design--spiral-120"></div>
+                <div class="rim-design--spiral-150"></div>
+                <div class="rim-design--spiral-180"></div>
+
+            </div>
+            <div class="rim-design rim-design--front rim-design--spiral">
+                <div class="rim-design--spiral-30"></div>
+                <div class="rim-design--spiral-60"></div>
+                <div class="rim-design--spiral-90"></div>
+                <div class="rim-design--spiral-120"></div>
+                <div class="rim-design--spiral-150"></div>
+                <div class="rim-design--spiral-180"></div>
+            </div>
+        </section>
+    </body>
 
 </html>
