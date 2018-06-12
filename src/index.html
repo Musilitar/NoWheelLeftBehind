@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1" />
-        <meta name="description" content="Customize your car and leave no wheel behind!" />
-        <title>No Wheel Left Behind</title>
-        <link rel="preload" href="font.woff2" as="font" crossorigin="anonymous">
-        <link rel="stylesheet" href="app.css">
-        <script src="app.js" charset="utf-8" defer></script>
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1" />
+    <meta name="description" content="Customize your car and leave no wheel behind!" />
+    <title>No Wheel Left Behind</title>
+    <link rel="preload" href="font.woff2" as="font" crossorigin="anonymous">
+    <link rel="stylesheet" href="app.css">
+    <script src="app.js" charset="utf-8" defer></script>
+</head>
 
-    <body>
-        <div class="car">
-            <div id="car-exterior">
-                <div class="car-roof car-roof--back"></div>
-                <div class="car-roof car-roof--middle"></div>
-                <div class="car-roof car-roof--front"></div>
-                <div class="car-body"></div>
-                <div class="car-wheel car-wheel--back"></div>
-                <div class="car-wheel car-wheel--front"></div>
+<body>
+    <div class="car">
+        <div id="car-exterior">
+            <div class="car-roof car-roof--back"></div>
+            <div class="car-window car-window--back">
+                <div class="car-window-connector car-window-connector--back"></div>
+                <div class="car-window-angled car-window-angled--back"></div>
             </div>
-            <div id="car-interior"></div>
+            <div class="car-roof car-roof--middle"></div>
+            <div class="car-window car-window--front">
+                <div class="car-window-connector car-window-connector--front"></div>
+                <div class="car-window-angled car-window-angled--front"></div>
+            </div>
+            <div class="car-roof car-roof--front"></div>
+            <div class="car-body"></div>
+            <div class="car-light car-light--back"></div>
+            <div class="car-light car-light--front"></div>
+            <div class="car-door car-door--back">
+                <div class="car-door-handle"></div>
+            </div>
+            <div class="car-door car-door--front">
+                <div class="car-door-handle"></div>
+            </div>
+            <div class="car-bumper"></div>
+            <div class="car-wheel car-wheel--back"></div>
+            <div class="car-wheel-rim car-wheel-rim--back"></div>
+            <div class="car-wheel car-wheel--front"></div>
+            <div class="car-wheel-rim car-wheel-rim--front"></div>
         </div>
-    </body>
+    </div>
+</body>
 
 </html>

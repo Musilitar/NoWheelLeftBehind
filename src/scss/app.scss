@@ -76,37 +76,142 @@ h2 {
     &>* {
         position: absolute;
         background-color: $color-blue;
+        border-radius: $border-radius-default;
     }
     &>.car-roof {
         display: inline-block;
         top: 0;
-        border-top: 1rem solid $color-black;
+        border-top: $border-width-car solid $color-black;
         &.car-roof--back {
-            top: 11.5%;
-            left: 12.75%;
-            width: 25%;
+            top: 11%;
+            left: 12.5%;
+            width: 27.5%;
             height: 33.33%;
-            transform: rotate(-45deg);
+            transform: rotate(-40deg);
         }
         &.car-roof--middle {
-            top: 1px;
-            left: 27.5%;
-            width: 45%;
-            height: 30%;
+            left: 30%;
+            width: 32.5%;
+            height: calc(30% - 1rem + 1px);
         }
         &.car-roof--front {
-            top: 11.5%;
-            right: 12.75%;
+            top: 11.15%;
+            right: 25%;
             width: 25%;
             height: 33.33%;
-            transform: rotate(45deg);
+            transform: rotate(50deg);
+        }
+    }
+    &>.car-window {
+        top: 1.5rem;
+        width: 12.5%;
+        height: calc(29% - 2rem);
+        background-color: $color-white;
+        border: $border-width-car solid $color-black;
+        z-index: $depth-car-details;
+        &.car-window--back {
+            left: 29.5%;
+        }
+        &.car-window--front {
+            right: 38.5%;
+        }
+        &>.car-window-angled {
+            position: absolute;
+            background-color: $color-white;
+            &.car-window-angled--back {
+                top: -1.5%;
+                left: -50.5%;
+                width: 50%;
+                height: 85%;
+                transform: rotate(50deg);
+                border-left: $border-width-car solid $color-black;
+            }
+            &.car-window-angled--front {
+                top: 1%;
+                right: -43%;
+                width: 45%;
+                height: 79.5%;
+                transform: rotate(-40deg);
+                border-right: $border-width-car solid $color-black;
+            }
+        }
+        &>.car-window-connector {
+            position: absolute;
+            bottom: -1rem;
+            background-color: $color-white;
+            border-bottom: $border-width-car solid $color-black;
+            &.car-window-connector--back {
+                left: -76.5%;
+                width: 70%;
+                height: 40%;
+                border-left: $border-width-car solid $color-black;
+            }
+            &.car-window-connector--front {
+                right: -65%;
+                width: 57.5%;
+                height: 40%;
+                border-right: $border-width-car solid $color-black;
+            }
         }
     }
     &>.car-body {
         top: 30%;
+        left: 2.5%;
+        width: calc(95% - 2rem);
+        height: 35%;
+        border: $border-width-car solid $color-black;
+        border-radius: $border-radius-default;
+    }
+    &>.car-light {
+        top: 30%;
+        width: 5%;
+        border: $border-width-car solid $color-black;
+        border-radius: $border-radius-default;
+        &.car-light--back {
+            left: 2.5%;
+            background-color: $color-red;
+        }
+        &.car-light--front {
+            right: 2.5%;
+            background-color: $color-yellow-light;
+        }
+        &.car-light:after {
+            display: block;
+            padding-bottom: 100%;
+            content: "";
+        }
+    }
+    &>.car-door {
+        top: 17.5%;
+        height: 52.5%;
+        border: $border-width-car solid $color-black;
+        border-radius: $border-radius-default;
+        &.car-door--back {
+            top: 16.5%;
+            left: 21%;
+            width: 21%;
+        }
+        &.car-door--front {
+            top: 17.5%;
+            right: 31.5%;
+            width: 19.5%;
+        }
+        &>.car-door-handle {
+            position: absolute;
+            top: 30%;
+            left: 10%;
+            width: 25%;
+            height: 7.5%;
+            border-radius: 0.25rem;
+            background-color: $color-black;
+        }
+    }
+    &>.car-bumper {
+        top: 67%;
         width: calc(100% - 2rem);
-        height: 48.33%;
-        border: 1rem solid $color-black;
+        height: 12.5%;
+        border: $border-width-car solid $color-black;
+        border-radius: $border-radius-default;
     }
     &>.car-wheel {
         bottom: 0;
@@ -114,12 +219,29 @@ h2 {
         border-radius: 50%;
         background-color: $color-black;
         &.car-wheel--back {
-            left: 10%;
+            left: 15%;
         }
         &.car-wheel--front {
             right: 10%;
         }
         &.car-wheel:after {
+            display: block;
+            padding-bottom: 100%;
+            content: "";
+        }
+    }
+    &>.car-wheel-rim {
+        bottom: 4.25%;
+        width: 15%;
+        border-radius: 50%;
+        background-color: $color-white;
+        &.car-wheel-rim--back {
+            left: 17.5%;
+        }
+        &.car-wheel-rim--front {
+            right: 12.5%;
+        }
+        &.car-wheel-rim:after {
             display: block;
             padding-bottom: 100%;
             content: "";
