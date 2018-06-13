@@ -16,7 +16,7 @@
 :root {
     width: 100%;
     height: 100%;
-    color: $color-text-dark;
+    color: $color-black;
     background-color: $color-white;
     font-family: $font-family-default;
     font-size: $font-size-default;
@@ -33,21 +33,17 @@
 
 /* MEDIA */
 
-@media screen and (orientation: landscape) {
-    .explanation {
-        bottom: 0;
-    }
-    .customization {
-        top: 0;
-    }
-}
+@media screen and (orientation: landscape) {}
 
 @media screen and (orientation: portrait) {
+    .content {
+        height: 95.75rem;
+    }
     .explanation {
-        top: 0;
+        height: 13.75rem;
     }
     .customization {
-        bottom: 0;
+        height: 25rem;
     }
 }
 
@@ -58,6 +54,7 @@
 /* GENERAL */
 
 body {
+    @include center-flex(nowrap);
     width: 100%;
     height: 100%;
 }
@@ -68,15 +65,113 @@ h2 {
 }
 
 label {
-    padding-left: $padding-minimal;
     font-size: $font-size-list;
 }
 
 li {
-    padding-bottom: $padding-minimal;
     list-style: none;
-    &:last-child {
-        padding-bottom: 0;
+}
+
+input[type="radio"] {
+    width: 0;
+    height: 0;
+    cursor: pointer;
+    &:before {
+        position: absolute;
+        top: 1.5rem;
+        width: 1rem;
+        height: 1rem;
+        background-color: $color-white;
+        border: 0.5rem solid $color-blue;
+        border-radius: 50%;
+        content: "";
+    }
+    &:checked:before {
+        background-color: $color-blue;
+    }
+}
+
+input[type="checkbox"] {
+    width: 0;
+    height: 0;
+    cursor: pointer;
+    &:checked~.check-slider {
+        background-color: $color-blue;
+        &:before {
+            transform: translateX(2rem);
+        }
+    }
+}
+
+.title {
+    width: 100%;
+    font-size: $font-size-title;
+    text-align: center;
+}
+
+.subtitle {
+    width: 100%;
+    font-size: $font-size-heading;
+    text-align: center;
+}
+
+.heading {
+    font-size: $font-size-heading;
+}
+
+.radio-list {
+    display: inline-block;
+    /*width: 18.5rem;*/
+    height: 15rem;
+}
+
+.radio-list-item {
+    position: relative;
+    /*width: 17.5rem;*/
+    height: 3rem;
+    padding: $padding-minimal $padding-minimal $padding-minimal 0;
+}
+
+.radio-label {
+    padding-left: 3rem;
+    user-select: none;
+    cursor: pointer;
+}
+
+.check-list {
+    @extend .radio-list;
+    /*width: 23.5rem;*/
+}
+
+.check-list-item {
+    @extend .radio-list-item;
+    /*width: 22.5rem;*/
+}
+
+.check-label {
+    @extend .radio-label;
+    padding-left: 5rem;
+}
+
+.check-slider {
+    position: absolute;
+    top: 1.5rem;
+    left: 0;
+    width: 4rem;
+    height: 2rem;
+    background-color: $color-grey;
+    border-radius: $border-radius-default;
+    cursor: pointer;
+    &:before {
+        position: absolute;
+        top: 0.375rem;
+        left: 0.375rem;
+        width: 1.25rem;
+        height: 1.25rem;
+        background-color: #F2EFEA;
+        border-radius: 50%;
+        transition: 0.5s;
+        content: "";
     }
 }
 
@@ -86,37 +181,47 @@ li {
 
 /* CONTENT */
 
-.explanation {
-    @include center-x(absolute);
-    @include center-flex(nowrap);
-    width: 90rem;
-    height: 25rem;
+.content {
+    position: relative;
+    width: 100%;
+    height: 95.75rem;
 }
 
-.title {
-    width: 100%;
-    font-size: $font-size-title;
-    text-align: center;
+.explanation {
+    @include center-x(absolute);
+    top: 0;
+    width: 90rem;
+    height: 13.75rem;
+    padding-bottom: $padding-maximal;
 }
 
 .customization {
-    @include center-x(absolute);
-    width: 90rem;
-    height: 25rem;
+    @include center-flex(nowrap);
+    position: absolute;
+    top: 68.75rem;
+    width: 100%;
+    height: 20rem;
+    padding-top: $padding-maximal;
 }
 
-.radio-list {
+.customize {
     display: inline-block;
+    &:not(:last-child) {
+        margin-right: $margin-default;
+    }
 }
 
 .car {
-    @include center(absolute);
+    @include center-x(absolute);
+    top: 18.75rem;
     width: 90rem;
     height: 50rem;
     &>* {
         position: absolute;
-        background-color: $color-blue;
         border-radius: $border-radius-default;
+    }
+    &>.car-color {
+        background-color: $color-white;
     }
     &>.car-roof {
         display: inline-block;
@@ -217,7 +322,7 @@ li {
         }
         &.car-light--front {
             right: 2.5%;
-            background-color: $color-yellow-light;
+            background-color: $color-yellow;
         }
         &.car-light:after {
             display: block;
@@ -265,8 +370,11 @@ li {
     &>.car-wheel {
         bottom: 0;
         width: 20%;
+        border: 1rem solid $color-black;
         border-radius: 50%;
-        background-color: $color-black;
+        &.car-wheel-color {
+            background-color: $color-white;
+        }
         &.car-wheel--back {
             left: 15%;
         }
@@ -282,6 +390,7 @@ li {
     &>.car-wheel-rim {
         bottom: 4.25%;
         width: 15%;
+        border: 1rem solid $color-black;
         border-radius: 50%;
         background-color: $color-white;
         &.car-wheel-rim--back {
@@ -296,38 +405,59 @@ li {
             content: "";
         }
     }
-    &>.rim-design {
+    &>.brandings {
+        @include center-flex(nowrap);
+        top: calc(30% + 1rem);
+        right: calc(2.5% + 1rem);
+        width: calc(29% - 1rem);
+        height: calc(37% - 1rem);
+        background-color: initial;
+        &>.branding {
+            display: none;
+            width: 35%;
+            &.branding--selected {
+                display: block;
+            }
+        }
+    }
+    &>.rim {
         display: none;
-        bottom: 4.25%;
+        bottom: 6.25%;
         width: 15%;
         border-radius: 50%;
         background-color: $color-white;
         &>* {
             border-radius: $border-radius-default;
         }
-        &.rim-design--active {
+        &.rim--selected {
             display: block;
         }
-        &.rim-design--back {
-            left: 17.5%;
+        &.rim--back {
+            left: 18.5%;
         }
-        &.rim-design--front {
-            right: 12.5%;
+        &.rim--front {
+            right: 13.5%;
         }
-        &.rim-design:after {
+        &.rim:after {
             display: block;
             padding-bottom: 100%;
             content: "";
         }
-        &.rim-design--biblical {
-            &>.rim-design--biblical-vertical {
+        &.rim--gangster {
+            &>.rim--gangster-sign {
+                @include center(absolute);
+                font-size: 14.5rem;
+            }
+        }
+        &.rim--biblical {
+            &>.rim--biblical-vertical {
                 @include center-x(absolute);
                 top: -5%;
                 width: 1rem;
                 height: 110%;
                 background-color: $color-black;
             }
-            &>.rim-design--biblical-horizontal {
+            &>.rim--biblical-horizontal {
                 position: absolute;
                 top: 3rem;
                 width: 100%;
@@ -335,24 +465,24 @@ li {
                 background-color: $color-black;
             }
         }
-        &.rim-design--spiral {
-            &>.rim-design--spiral-30 {
-                @include rim-design--spiral-spoke(30deg);
+        &.rim--spokes {
+            &>.rim--spokes-30 {
+                @include rim--spokes-spoke(30deg);
             }
-            &>.rim-design--spiral-60 {
-                @include rim-design--spiral-spoke(60deg);
+            &>.rim--spokes-60 {
+                @include rim--spokes-spoke(60deg);
             }
-            &>.rim-design--spiral-90 {
-                @include rim-design--spiral-spoke(90deg);
+            &>.rim--spokes-90 {
+                @include rim--spokes-spoke(90deg);
             }
-            &>.rim-design--spiral-120 {
-                @include rim-design--spiral-spoke(120deg);
+            &>.rim--spokes-120 {
+                @include rim--spokes-spoke(120deg);
             }
-            &>.rim-design--spiral-150 {
-                @include rim-design--spiral-spoke(150deg);
+            &>.rim--spokes-150 {
+                @include rim--spokes-spoke(150deg);
             }
-            &>.rim-design--spiral-180 {
-                @include rim-design--spiral-spoke(180deg);
+            &>.rim--spokes-180 {
+                @include rim--spokes-spoke(180deg);
             }
         }
     }

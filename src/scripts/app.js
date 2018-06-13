@@ -81,12 +81,25 @@ const UPDATER = {
         }
     },
     updaters: {
-        newRims: function (rims) {
+        newCarBranding: function (branding) {
+            MODEL.insert("carBranding", branding);
+            DRAWER.draw("carBranding");
+        },
+        newCarColor: function (color) {
+            MODEL.insert("carColor", color);
+            DRAWER.draw("carColor");
+        },
+        newCarTires: function (tire) {
+            MODEL.insert("carTires", tire);
+            DRAWER.draw("carTires");
+        },
+        newCarRims: function (rims) {
             MODEL.insert("carRims", rims);
             DRAWER.draw("carRims");
         },
         newBrandings: function (brandings) {
             MODEL.insert("brandings", brandings);
+            DRAWER.draw("brandings");
         }
     }
 };
@@ -94,19 +107,61 @@ const UPDATER = {
 const DRAWER = {
     draw: function (key) {
         if (this.drawers.hasOwnProperty(key)) {
-            const drawer = this.drawers[key];
-            drawer();
+            this.drawers[key]();
         }
     },
     drawers: {
-        carRims: function () {
-            const rimDesigns = toArray(document.getElementsByClassName("rim-design"));
-            rimDesigns.map((rimDesign) => {
-                rimDesign.classList.remove("rim-design--active");
+        carBranding: function () {
+            toggleClassByClassName("branding", "branding--selected", "carBranding");
+        },
+        carColor: function () {
+            const coloredElements = toArray(document.getElementsByClassName("car-color"));
+            const color = MODEL.read("carColor");
+            coloredElements.map((element) => {
+                element.style.backgroundColor = color;
             });
-            const newRimDesigns = toArray(document.getElementsByClassName(MODEL.read("carRims")));
-            newRimDesigns.map((newRimDesign) => {
-                newRimDesign.classList.add("rim-design--active");
+        },
+        carTires: function () {
+            const tires = toArray(document.getElementsByClassName("car-wheel-color"));
+            const tireType = MODEL.read("carTires");
+            tires.map((tire) => {
+                tire.style.backgroundColor = tireType;
+            });
+        },
+        carRims: function () {
+            toggleClassByClassName("rim", "rim--selected", "carRims");
+        },
+        brandings: function () {
+            const brandings = MODEL.read("brandings");
+            const brandingsContainer = document.getElementById("brandings");
+            const brandingsList = document.getElementById("radioListBrandings");
+            brandings.map((branding) => {
+                const id = "branding" + branding.make;
+                const className = "branding--" + branding.make.toLowerCase();
+                const image = createElementWithClassesAttributes("img", ["branding", className], {
+                    src: branding.logoUrl
+                });
+                const listItem = createElementWithClasses("li", ["radio-list-item"]);
+                const radio = createElementWithAttributes("input", {
+                    id: id,
+                    type: "radio",
+                    name: "branding",
+                    value: className
+                });
+                const label = createElementWithClassesAttributesContent("label", ["radio-label"], {
+                    for: id
+                }, branding.make);
+
+                radio.addEventListener("click", (event) => {
+                    UPDATER.update("newCarBranding", event.target.value);
+                });
+
+                listItem.appendChild(radio);
+                listItem.appendChild(label);
+
+                brandingsList.appendChild(listItem);
+
+                brandingsContainer.appendChild(image);
             });
         }
     }
@@ -134,10 +189,24 @@ function app() {
 }
 
 function attachEventListeners() {
-    const radiosRimDesign = toArray(document.querySelectorAll("input[name='rimDesign'"));
-    radiosRimDesign.map((radio) => {
+    const radiosColor = toArray(document.querySelectorAll("input[name='color'"));
+    radiosColor.map((radio) => {
         radio.addEventListener("click", (event) => {
-            UPDATER.update("newRims", event.target.value);
+            UPDATER.update("newCarColor", event.target.value);
+        });
+    });
+
+    const radiosTires = toArray(document.querySelectorAll("input[name='tire'"));
+    radiosTires.map((radio) => {
+        radio.addEventListener("click", (event) => {
+            UPDATER.update("newCarTires", event.target.value);
+        });
+    });
+
+    const radiosRim = toArray(document.querySelectorAll("input[name='rim'"));
+    radiosRim.map((radio) => {
+        radio.addEventListener("click", (event) => {
+            UPDATER.update("newCarRims", event.target.value);
         });
     });
 }
@@ -147,6 +216,56 @@ function attachEventListeners() {
 // HELPERS
 function toArray(collection) {
     return [].slice.call(collection);
+}
+
+function toggleClassByClassName(targetClass, toggleClass, modelKey) {
+    const allElements = toArray(document.getElementsByClassName(targetClass));
+    allElements.map((element) => {
+        element.classList.remove(toggleClass);
+    });
+    const targetElements = toArray(document.getElementsByClassName(MODEL.read(modelKey)));
+    targetElements.map((element) => {
+        element.classList.add(toggleClass);
+    });
+}
+
+function createElementWithClasses(tagName, classes) {
+    const element = document.createElement(tagName);
+    classes.map((className) => {
+        element.classList.add(className);
+    });
+    return element;
+}
+
+function createElementWithAttributes(tagName, attributes) {
+    const element = document.createElement(tagName);
+    Object.keys(attributes).map((key) => {
+        element.setAttribute(key, attributes[key]);
+    });
+    return element;
+}
+
+function createElementWithClassesAttributes(tagName, classes, attributes) {
+    const element = document.createElement(tagName);
+    classes.map((className) => {
+        element.classList.add(className);
+    });
+    Object.keys(attributes).map((key) => {
+        element.setAttribute(key, attributes[key]);
+    });
+    return element;
+}
+
+function createElementWithClassesAttributesContent(tagName, classes, attributes, content) {
+    const element = document.createElement(tagName);
+    classes.map((className) => {
+        element.classList.add(className);
+    });
+    Object.keys(attributes).map((key) => {
+        element.setAttribute(key, attributes[key]);
+    });
+    element.textContent = content;
+    return element;
 }
 
 

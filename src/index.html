@@ -5,86 +5,162 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1" />
         <meta name="description" content="Customize your car and leave no wheel behind!" />
-        <title>No Wheel Left Behind</title>
+        <title>NWLB - No Wheel Left Behind</title>
         <link rel="preload" href="font.woff2" as="font" crossorigin="anonymous">
         <link rel="stylesheet" href="app.css">
         <script src="app.js" charset="utf-8" defer></script>
     </head>
 
     <body>
-        <section class="customization">
-            <div class="customize-rim-design">
-                <ul class="radio-list">
-                    <li>
-                        <input id="rimDesignPlain" type="radio" name="rimDesign" value="rim-design--plain">
-                        <label for="rimDesignPlain">Plain</label>
-                    </li>
-                    <li>
-                        <input id="rimDesignBiblical" type="radio" name="rimDesign" value="rim-design--biblical">
-                        <label for="rimDesignBiblical">Biblical</label>
-                    </li>
-                    <li>
-                        <input id="rimDesignSpiral" type="radio" name="rimDesign" value="rim-design--spiral">
-                        <label for="rimDesignSpiral">Spiral</label>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <section class="explanation">
-            <h1 class="title">NO WHEEL LEFT BEHIND</h1>
-        </section>
-        <section class="car">
-            <div class="car-roof car-roof--back"></div>
-            <div class="car-window car-window--back">
-                <div class="car-window-connector car-window-connector--back"></div>
-                <div class="car-window-angled car-window-angled--back"></div>
-            </div>
-            <div class="car-roof car-roof--middle"></div>
-            <div class="car-window car-window--front">
-                <div class="car-window-connector car-window-connector--front"></div>
-                <div class="car-window-angled car-window-angled--front"></div>
-            </div>
-            <div class="car-roof car-roof--front"></div>
-            <div class="car-body"></div>
-            <div class="car-light car-light--back"></div>
-            <div class="car-light car-light--front"></div>
-            <div class="car-door car-door--back">
-                <div class="car-door-handle car-door-handle--back"></div>
-            </div>
-            <div class="car-door car-door--front">
-                <div class="car-door-handle car-door-handle--front"></div>
-            </div>
-            <div class="car-bumper"></div>
-            <div class="car-wheel car-wheel--back"></div>
-            <div class="car-wheel-rim car-wheel-rim--back"></div>
-            <div class="car-wheel car-wheel--front"></div>
-            <div class="car-wheel-rim car-wheel-rim--front"></div>
-            <div class="rim-design rim-design--back rim-design--biblical">
-                <div class="rim-design--biblical-vertical"></div>
-                <div class="rim-design--biblical-horizontal"></div>
-            </div>
-            <div class="rim-design rim-design--front rim-design--biblical">
-                <div class="rim-design--biblical-vertical"></div>
-                <div class="rim-design--biblical-horizontal"></div>
-            </div>
-            <div class="rim-design rim-design--back rim-design--spiral">
-                <div class="rim-design--spiral-30"></div>
-                <div class="rim-design--spiral-60"></div>
-                <div class="rim-design--spiral-90"></div>
-                <div class="rim-design--spiral-120"></div>
-                <div class="rim-design--spiral-150"></div>
-                <div class="rim-design--spiral-180"></div>
+        <div class="content">
+            <section class="explanation">
+                <h1 class="title">NO WHEEL LEFT BEHIND</h1>
+                <h2 class="subtitle">Customize your car and leave no wheel behind!</h2>
+            </section>
+            <section id="car" class="car">
+                <div class="car-roof car-roof--back car-color"></div>
+                <div class="car-window car-window--back">
+                    <div class="car-window-connector car-window-connector--back"></div>
+                    <div class="car-window-angled car-window-angled--back"></div>
+                </div>
+                <div class="car-roof car-roof--middle car-color"></div>
+                <div class="car-window car-window--front">
+                    <div class="car-window-connector car-window-connector--front"></div>
+                    <div class="car-window-angled car-window-angled--front"></div>
+                </div>
+                <div class="car-roof car-roof--front car-color"></div>
+                <div class="car-body car-color"></div>
+                <div class="car-light car-light--back"></div>
+                <div class="car-light car-light--front"></div>
+                <div class="car-door car-door--back">
+                    <div class="car-door-handle car-door-handle--back"></div>
+                </div>
+                <div class="car-door car-door--front">
+                    <div class="car-door-handle car-door-handle--front"></div>
+                </div>
+                <div class="car-bumper car-color"></div>
+                <div class="car-wheel car-wheel--back car-wheel-color"></div>
+                <div class="car-wheel-rim car-wheel-rim--back"></div>
+                <div class="car-wheel car-wheel--front car-wheel-color"></div>
+                <div class="car-wheel-rim car-wheel-rim--front"></div>
+                <div id="brandings" class="brandings"></div>
+                <div class="rim rim--back rim--gangster">
+                    <div class="rim--gangster-sign">$</div>
+                </div>
+                <div class="rim rim--front rim--gangster">
+                    <div class="rim--gangster-sign">$</div>
+                </div>
+                <div class="rim rim--back rim--biblical">
+                    <div class="rim--biblical-vertical"></div>
+                    <div class="rim--biblical-horizontal"></div>
+                </div>
+                <div class="rim rim--front rim--biblical">
+                    <div class="rim--biblical-vertical"></div>
+                    <div class="rim--biblical-horizontal"></div>
+                </div>
+                <div class="rim rim--back rim--spokes">
+                    <div class="rim--spokes-30"></div>
+                    <div class="rim--spokes-60"></div>
+                    <div class="rim--spokes-90"></div>
+                    <div class="rim--spokes-120"></div>
+                    <div class="rim--spokes-150"></div>
+                    <div class="rim--spokes-180"></div>
 
-            </div>
-            <div class="rim-design rim-design--front rim-design--spiral">
-                <div class="rim-design--spiral-30"></div>
-                <div class="rim-design--spiral-60"></div>
-                <div class="rim-design--spiral-90"></div>
-                <div class="rim-design--spiral-120"></div>
-                <div class="rim-design--spiral-150"></div>
-                <div class="rim-design--spiral-180"></div>
-            </div>
-        </section>
+                </div>
+                <div class="rim rim--front rim--spokes">
+                    <div class="rim--spokes-30"></div>
+                    <div class="rim--spokes-60"></div>
+                    <div class="rim--spokes-90"></div>
+                    <div class="rim--spokes-120"></div>
+                    <div class="rim--spokes-150"></div>
+                    <div class="rim--spokes-180"></div>
+                </div>
+            </section>
+            <section class="customization">
+                <div class="customize customize--branding">
+                    <h3 class="heading">Branding</h3>
+                    <ul id="radioListBrandings" class="radio-list">
+                    </ul>
+                </div>
+                <div class="customize customize--color">
+                    <h3 class="heading">Color</h3>
+                    <ul id="radioListBrandings" class="radio-list">
+                        <li class="radio-list-item">
+                            <input id="colorTeal" type="radio" name="color" value="#628395">
+                            <label class="radio-label" for="colorTeal">Teal</label>
+                        </li>
+                        <li class="radio-list-item">
+                            <input id="colorSpring" type="radio" name="color" value="#D0CE7C">
+                            <label class="radio-label" for="colorSpring">Spring</label>
+                        </li>
+                        <li class="radio-list-item">
+                            <input id="colorFawn" type="radio" name="color" value="#DBAD6A">
+                            <label class="radio-label" for="colorFawn">Fawn</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="customize customize--tires">
+                    <h3 class="heading">Tires</h3>
+                    <ul id="radioListBrandings" class="radio-list">
+                        <li class="radio-list-item">
+                            <input id="tireGoodyear" type="radio" name="tire" value="#2F2F2F">
+                            <label class="radio-label" for="tireGoodyear">Goodyear</label>
+                        </li>
+                        <li class="radio-list-item">
+                            <input id="tireMediumyear" type="radio" name="tire" value="#D3C1C3">
+                            <label class="radio-label" for="tireMediumyear">Mediumyear</label>
+                        </li>
+                        <li class="radio-list-item">
+                            <input id="tireBadyear" type="radio" name="tire" value="#8F8073">
+                            <label class="radio-label" for="tireBadyear">Badyear</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="customize customize--rims">
+                    <h3 class="heading">Rims</h3>
+                    <ul class="radio-list">
+                        <li class="radio-list-item">
+                            <input id="rimGangster" type="radio" name="rim" value="rim--gangster">
+                            <label class="radio-label" for="rimGangster">Gangster</label>
+                        </li>
+                        <li class="radio-list-item">
+                            <input id="rimBiblical" type="radio" name="rim" value="rim--biblical">
+                            <label class="radio-label" for="rimBiblical">Biblical</label>
+                        </li>
+                        <li class="radio-list-item">
+                            <input id="rimSpokes" type="radio" name="rim" value="rim--spokes">
+                            <label class="radio-label" for="rimSpokes">Spokes</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="customize customize--options">
+                    <h3 class="heading">Options</h3>
+                    <ul class="check-list">
+                        <li class="check-list-item">
+                            <label class="check-label" for="optionRadio">
+                                Radio
+                                <input id="optionRadio" type="checkbox" name="radio">
+                                <span class="check-slider"></span>
+                            </label>
+                        </li>
+                        <li class="check-list-item">
+                            <label class="check-label" for="optionAC">
+                                Air conditioning
+                                <input id="optionAC" type="checkbox" name="AC">
+                                <span class="check-slider"></span>
+                            </label>
+                        </li>
+                        <li class="check-list-item">
+                            <label class="check-label" for="optionHeated">
+                                Heated seats
+                                <input id="optionHeated" type="checkbox" name="heated">
+                                <span class="check-slider"></span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
     </body>
 
 </html>
