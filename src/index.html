@@ -17,7 +17,17 @@
                 <h1 class="title">NO WHEEL LEFT BEHIND</h1>
                 <h2 class="subtitle">Customize your car and leave no wheel behind!</h2>
             </section>
-            <section class="car car--side view view--side">
+            <section class="car view view--back">
+                <div class="car-body car-body--front car-color">
+                    <div class="car-light car-light--back-right"></div>
+                    <div class="car-light car-light--back-left"></div>
+                    <div id="licensePlateOutput" class="car-license-plate"></div>
+                </div>
+                <div class="car-bumper car-bumper--front car-color"></div>
+                <div class="car-wheel-housing car-wheel-housing--right car-color"></div>
+                <div class="car-wheel-housing car-wheel-housing--left car-color"></div>
+            </section>
+            <section class="car view view--side">
                 <div class="car-roof car-roof--back car-color"></div>
                 <div class="car-window car-window--back">
                     <div class="car-window-connector car-window-connector--back"></div>
@@ -75,7 +85,7 @@
                     <div class="rim--spokes-180"></div>
                 </div>
             </section>
-            <section class="car car--front view view--front">
+            <section class="car view view--front">
                 <div class="car-body car-body--front car-color">
                     <div class="car-light car-light--front-right"></div>
                     <div class="car-light car-light--front-left"></div>
@@ -108,6 +118,12 @@
                     <span class="camera-selector-description camera-selector-description--front">FRONT</span>
                 </span>
             </div>
+            <section class="customization customization--back view view--back">
+                <div class="customize customize--branding">
+                    <h3 class="heading">License plate</h3>
+                    <input id="licensePlateInput" type="text" name="licensePlate" maxlength="9" placeholder="0MGWTFBBQ">
+                </div>
+            </section>
             <section class="customization customization--side view view--side">
                 <div class="customize customize--color">
                     <h3 class="heading">Color</h3>

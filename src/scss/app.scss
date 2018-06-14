@@ -72,6 +72,15 @@ li {
     list-style: none;
 }
 
+input[type="text"] {
+    background-color: $color-white;
+    border: none;
+    outline: none;
+    border-bottom: 0.3rem solid $color-black;
+    font-family: $font-family-default;
+    font-size: $font-size-list;
+}
+
 input[type="radio"] {
     width: 0;
     height: 0;
@@ -312,6 +321,14 @@ input[type="checkbox"] {
             width: 7.5%;
             border: $border-width-car solid $color-black;
             border-radius: $border-radius-default;
+            &.car-light--back-right {
+                left: -1rem;
+                background-color: $color-red;
+            }
+            &.car-light--back-left {
+                right: -1rem;
+                background-color: $color-red;
+            }
             &.car-light--back {
                 left: -1rem;
                 background-color: $color-red;
@@ -333,6 +350,19 @@ input[type="checkbox"] {
                 padding-bottom: 100%;
                 content: "";
             }
+        }
+        &>.car-license-plate {
+            @include center-x(absolute);
+            @include center-flex(nowrap);
+            bottom: 10%;
+            width: 40%;
+            height: 40%;
+            background-color: $color-white;
+            border: $border-width-car solid $color-red;
+            border-radius: $border-radius-default;
+            color: $color-red;
+            font-size: $font-size-heading;
+            z-index: $depth-car-details;
         }
         &>.car-grill {
             @include center(absolute);

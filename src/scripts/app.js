@@ -2,6 +2,7 @@
 // DATA
 // DATA
 const URL_CAR_BRANDINGS = "https://car-api.firebaseio.com/rest.json";
+const DEFAULT_CAR_LICENSE_PLATE = "0MGWTFBBQ";
 const DEFAULT_CAR_BRANDING = {
     make: "Audi",
     logoUrl: "https://seeklogo.com/images/A/Audi-logo-70A7072C07-seeklogo.com.png"
@@ -61,6 +62,7 @@ const MODEL = {
         }
     },
     history: {
+        carLicensePlate: [DEFAULT_CAR_LICENSE_PLATE],
         carBranding: [DEFAULT_CAR_BRANDING],
         carColor: [DEFAULT_CAR_COLOR],
         carOptions: [DEFAULT_CAR_OPTIONS],
@@ -87,6 +89,10 @@ const UPDATER = {
         }
     },
     updaters: {
+        newCarLicensePlate: function (licensePlate) {
+            MODEL.insert("carLicensePlate", licensePlate.toUpperCase());
+            DRAWER.draw("carLicensePlate");
+        },
         newCarBranding: function (branding) {
             MODEL.insert("carBranding", branding);
             DRAWER.draw("carBranding");
@@ -121,6 +127,10 @@ const DRAWER = {
         }
     },
     drawers: {
+        carLicensePlate: function () {
+            const licensePlateOutput = document.getElementById("licensePlateOutput");
+            licensePlateOutput.textContent = MODEL.read("carLicensePlate");
+        },
         carBranding: function () {
             toggleClassByClassName("branding", "branding--selected", "carBranding");
         },
@@ -222,6 +232,11 @@ function attachEventListeners() {
     const cameraSelectorFront = document.getElementById("cameraSelectorFront");
     cameraSelectorFront.addEventListener("click", (event) => {
         UPDATER.update("newView", "view--front");
+    });
+
+    const textLicensePlate = document.getElementById("licensePlateInput");
+    textLicensePlate.addEventListener("input", (event) => {
+        UPDATER.update("newCarLicensePlate", event.target.value);
     });
 
     const radiosColor = toArray(document.querySelectorAll("input[name='color'"));
