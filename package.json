@@ -1,0 +1,43 @@
+{
+    "private": false,
+    "name": "nowheelleftbehind",
+    "version": "0.0.1",
+    "description": "Customize your car and leave no wheel behind!",
+    "main": "app.js",
+    "scripts": {
+        "optimize:js": "uglifyjs dist/app.js --compress --mangle --output dist/app.js",
+        "optimize:css": "cleancss dist/app.css --output dist/app.css",
+        "optimize": "npm run optimize:js && npm run optimize:css",
+        "sass:generate": "node-sass -q src/scss/app.scss dist/app.css",
+        "copy:scripts": "cp -r src/scripts/. dist/",
+        "copy:html": "cp src/**.html dist/",
+        "copy:icons": "cp -r src/icons/. dist/",
+        "copy:fonts": "cp -r src/fonts/. dist/",
+        "copy:development": "npm run copy:scripts && npm run copy:html && npm run copy:icons && npm run copy:fonts",
+        "copy:production": "npm run copy:scripts && npm run copy:html && npm run copy:icons && npm run copy:fonts",
+        "build:development": "npm run sass:generate && npm run copy:development",
+        "build:production": "npm run sass:generate && npm run copy:production && npm run optimize",
+        "watch": "npm run watch:scripts & npm run watch:scss & npm run watch:html",
+        "watch:scripts": "onchange \"src/scripts/*.js\" -- npm run copy:scripts",
+        "watch:scss": "onchange \"src/scss/**/*.scss\" -- npm run sass:generate",
+        "watch:html": "onchange \"src/*.html\" -- npm run copy:html",
+        "server": "browser-sync start --config \"bs-config.js\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Musilitar/NoWheelLeftBehind"
+    },
+    "keywords": [
+        "customize",
+        "car"
+    ],
+    "author": "Lode Lesage",
+    "license": "BSD-3",
+    "devDependencies": {
+        "browser-sync": "2.24.4",
+        "clean-css-cli": "4.1.11",
+        "uglify-es": "3.3.9",
+        "node-sass": "4.9.0",
+        "onchange": "4.0.0"
+    }
+}
