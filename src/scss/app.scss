@@ -187,28 +187,19 @@ input[type="checkbox"] {
     height: 95.75rem;
 }
 
+.view {
+    display: none;
+    &.view--selected {
+        display: block;
+    }
+}
+
 .explanation {
     @include center-x(absolute);
     top: 0;
     width: 90rem;
     height: 13.75rem;
     padding-bottom: $padding-maximal;
-}
-
-.customization {
-    @include center-flex(nowrap);
-    position: absolute;
-    top: 68.75rem;
-    width: 100%;
-    height: 20rem;
-    padding-top: $padding-maximal;
-}
-
-.customize {
-    display: inline-block;
-    &:not(:last-child) {
-        margin-right: $margin-default;
-    }
 }
 
 .car {
@@ -310,24 +301,78 @@ input[type="checkbox"] {
         height: 35%;
         border: $border-width-car solid $color-black;
         border-radius: $border-radius-default;
-    }
-    &>.car-light {
-        top: 30%;
-        width: 5%;
-        border: $border-width-car solid $color-black;
-        border-radius: $border-radius-default;
-        &.car-light--back {
-            left: 2.5%;
-            background-color: $color-red;
+        &.car-body--front {
+            top: 26.25%;
+            left: 12.5%;
+            width: calc(75% - 2rem);
         }
-        &.car-light--front {
-            right: 2.5%;
-            background-color: $color-yellow;
+        &>.car-light {
+            position: absolute;
+            top: -1rem;
+            width: 7.5%;
+            border: $border-width-car solid $color-black;
+            border-radius: $border-radius-default;
+            &.car-light--back {
+                left: -1rem;
+                background-color: $color-red;
+            }
+            &.car-light--front {
+                right: -1rem;
+                background-color: $color-yellow;
+            }
+            &.car-light--front-right {
+                left: -1rem;
+                background-color: $color-yellow;
+            }
+            &.car-light--front-left {
+                right: -1rem;
+                background-color: $color-yellow;
+            }
+            &.car-light:after {
+                display: block;
+                padding-bottom: 100%;
+                content: "";
+            }
         }
-        &.car-light:after {
-            display: block;
-            padding-bottom: 100%;
-            content: "";
+        &>.car-grill {
+            @include center(absolute);
+            @include center-flex(nowrap);
+            width: 50%;
+            height: 50%;
+            background-color: $color-white;
+            border: $border-width-car solid $color-black;
+            border-radius: $border-radius-default;
+            z-index: $depth-car-details;
+            &>.car-grill-part {
+                flex: 10%;
+                width: 1rem;
+                height: 100%;
+                margin-left: 2rem;
+                background-color: $color-black;
+                &:last-child {
+                    margin-right: 2rem;
+                }
+            }
+            &>.brandings {
+                @include center-flex(nowrap);
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                background-color: initial;
+                &>.branding {
+                    display: none;
+                    width: 18.5%;
+                    padding: $padding-minimal;
+                    background-color: $color-white;
+                    border: $border-width-car solid $color-black;
+                    border-radius: $border-radius-default;
+                    &.branding--selected {
+                        display: block;
+                    }
+                }
+            }
         }
     }
     &>.car-door {
@@ -366,6 +411,24 @@ input[type="checkbox"] {
         height: 12.5%;
         border: $border-width-car solid $color-black;
         border-radius: $border-radius-default;
+        &.car-bumper--front {
+            top: 63.5%;
+            left: 10%;
+            width: calc(80% - 2rem);
+        }
+    }
+    &>.car-wheel-housing {
+        top: 50%;
+        width: 10%;
+        height: 35%;
+        border: $border-width-car solid $color-black;
+        border-radius: $border-radius-default;
+        &.car-wheel-housing--right {
+            left: 5%;
+        }
+        &.car-wheel-housing--left {
+            right: 5%;
+        }
     }
     &>.car-wheel {
         bottom: 0;
@@ -403,21 +466,6 @@ input[type="checkbox"] {
             display: block;
             padding-bottom: 100%;
             content: "";
-        }
-    }
-    &>.brandings {
-        @include center-flex(nowrap);
-        top: calc(30% + 1rem);
-        right: calc(2.5% + 1rem);
-        width: calc(29% - 1rem);
-        height: calc(37% - 1rem);
-        background-color: initial;
-        &>.branding {
-            display: none;
-            width: 35%;
-            &.branding--selected {
-                display: block;
-            }
         }
     }
     &>.rim {
@@ -485,5 +533,82 @@ input[type="checkbox"] {
                 @include rim--spokes-spoke(180deg);
             }
         }
+    }
+}
+
+.camera {
+    @include center-x(absolute);
+    top: 65rem;
+    width: 10rem;
+    height: 5rem;
+    z-index: $depth-car-details;
+    cursor: pointer;
+}
+
+.camera-selector {
+    position: absolute;
+    &.camera-selector--back {
+        top: calc(100% - 1rem);
+        left: 0;
+        width: calc(50% - 1rem);
+        height: 1rem;
+        background-color: $color-black;
+    }
+    &.camera-selector--side {
+        left: calc(50% - 0.5rem);
+        width: 1rem;
+        height: 100%;
+        background-color: $color-black;
+    }
+    &.camera-selector--front {
+        top: calc(100% - 1rem);
+        right: 0;
+        width: calc(50% - 1rem);
+        height: 1rem;
+        background-color: $color-black;
+    }
+}
+
+.camera-selector-description {
+    position: absolute;
+    font-size: $font-size-list;
+    user-select: none;
+    &:hover,
+    .camera-selector-description--selected {
+        font-weight: bold;
+    }
+    &.camera-selector-description--back {
+        bottom: -1rem;
+        left: -7rem;
+    }
+    &.camera-selector-description--side {
+        top: -3rem;
+        left: -2rem;
+    }
+    &.camera-selector-description--front {
+        right: -9rem;
+        bottom: -1rem;
+    }
+}
+
+.customization {
+    @include center-flex(nowrap);
+    position: absolute;
+    top: 68.75rem;
+    width: 100%;
+    height: 19.5rem;
+    padding-top: $padding-maximal;
+    &.view {
+        display: none;
+        &.view--selected {
+            display: flex;
+        }
+    }
+}
+
+.customize {
+    display: inline-block;
+    &:not(:last-child) {
+        margin-right: $margin-default;
     }
 }

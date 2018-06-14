@@ -17,7 +17,7 @@
                 <h1 class="title">NO WHEEL LEFT BEHIND</h1>
                 <h2 class="subtitle">Customize your car and leave no wheel behind!</h2>
             </section>
-            <section id="car" class="car">
+            <section class="car car--side view view--side">
                 <div class="car-roof car-roof--back car-color"></div>
                 <div class="car-window car-window--back">
                     <div class="car-window-connector car-window-connector--back"></div>
@@ -29,9 +29,10 @@
                     <div class="car-window-angled car-window-angled--front"></div>
                 </div>
                 <div class="car-roof car-roof--front car-color"></div>
-                <div class="car-body car-color"></div>
-                <div class="car-light car-light--back"></div>
-                <div class="car-light car-light--front"></div>
+                <div class="car-body car-color">
+                    <div class="car-light car-light--back"></div>
+                    <div class="car-light car-light--front"></div>
+                </div>
                 <div class="car-door car-door--back">
                     <div class="car-door-handle car-door-handle--back"></div>
                 </div>
@@ -43,7 +44,6 @@
                 <div class="car-wheel-rim car-wheel-rim--back"></div>
                 <div class="car-wheel car-wheel--front car-wheel-color"></div>
                 <div class="car-wheel-rim car-wheel-rim--front"></div>
-                <div id="brandings" class="brandings"></div>
                 <div class="rim rim--back rim--gangster">
                     <div class="rim--gangster-sign">$</div>
                 </div>
@@ -65,7 +65,6 @@
                     <div class="rim--spokes-120"></div>
                     <div class="rim--spokes-150"></div>
                     <div class="rim--spokes-180"></div>
-
                 </div>
                 <div class="rim rim--front rim--spokes">
                     <div class="rim--spokes-30"></div>
@@ -76,15 +75,43 @@
                     <div class="rim--spokes-180"></div>
                 </div>
             </section>
-            <section class="customization">
-                <div class="customize customize--branding">
-                    <h3 class="heading">Branding</h3>
-                    <ul id="radioListBrandings" class="radio-list">
-                    </ul>
+            <section class="car car--front view view--front">
+                <div class="car-body car-body--front car-color">
+                    <div class="car-light car-light--front-right"></div>
+                    <div class="car-light car-light--front-left"></div>
+                    <div class="car-grill">
+                        <div id="brandings" class="brandings"></div>
+                        <div class="car-grill-part"></div>
+                        <div class="car-grill-part"></div>
+                        <div class="car-grill-part"></div>
+                        <div class="car-grill-part"></div>
+                        <div class="car-grill-part"></div>
+                        <div class="car-grill-part"></div>
+                        <div class="car-grill-part"></div>
+                        <div class="car-grill-part"></div>
+                        <div class="car-grill-part"></div>
+                        <div class="car-grill-part"></div>
+                    </div>
                 </div>
+                <div class="car-bumper car-bumper--front car-color"></div>
+                <div class="car-wheel-housing car-wheel-housing--right car-color"></div>
+                <div class="car-wheel-housing car-wheel-housing--left car-color"></div>
+            </section>
+            <div class="camera">
+                <span id="cameraSelectorBack" class="camera-selector camera-selector--back">
+                    <span class="camera-selector-description camera-selector-description--back">BACK</span>
+                </span>
+                <span id="cameraSelectorSide" class="camera-selector camera-selector--side">
+                    <span class="camera-selector-description camera-selector-description--side">SIDE</span>
+                </span>
+                <span id="cameraSelectorFront" class="camera-selector camera-selector--front">
+                    <span class="camera-selector-description camera-selector-description--front">FRONT</span>
+                </span>
+            </div>
+            <section class="customization customization--side view view--side">
                 <div class="customize customize--color">
                     <h3 class="heading">Color</h3>
-                    <ul id="radioListBrandings" class="radio-list">
+                    <ul class="radio-list">
                         <li class="radio-list-item">
                             <input id="colorTeal" type="radio" name="color" value="#628395">
                             <label class="radio-label" for="colorTeal">Teal</label>
@@ -101,7 +128,7 @@
                 </div>
                 <div class="customize customize--tires">
                     <h3 class="heading">Tires</h3>
-                    <ul id="radioListBrandings" class="radio-list">
+                    <ul class="radio-list">
                         <li class="radio-list-item">
                             <input id="tireGoodyear" type="radio" name="tire" value="#2F2F2F">
                             <label class="radio-label" for="tireGoodyear">Goodyear</label>
@@ -157,6 +184,13 @@
                                 <span class="check-slider"></span>
                             </label>
                         </li>
+                    </ul>
+                </div>
+            </section>
+            <section class="customization customization--front view view--front">
+                <div class="customize customize--branding">
+                    <h3 class="heading">Branding</h3>
+                    <ul id="radioListBrandings" class="radio-list">
                     </ul>
                 </div>
             </section>

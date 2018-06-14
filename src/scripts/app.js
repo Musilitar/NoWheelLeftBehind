@@ -6,10 +6,15 @@ const DEFAULT_CAR_BRANDING = {
     make: "Audi",
     logoUrl: "https://seeklogo.com/images/A/Audi-logo-70A7072C07-seeklogo.com.png"
 };
-const DEFAULT_CAR_COLOR = "#2B59C3";
+const DEFAULT_CAR_COLOR = "#628395";
 const DEFAULT_CAR_OPTIONS = ["Radio"];
-const DEFAULT_CAR_TIRES = "Goodyear";
-const DEFAULT_CAR_RIMS = "rim-design--plain";
+const DEFAULT_CAR_TIRES = "#D3C1C3";
+const DEFAULT_CAR_RIMS = "rim--biblical";
+const DEFAULT_VIEW = "view--side";
+const DEFAULT_BRANDINGS = [{
+    make: "",
+    logoUrl: ""
+}];
 const DEFAULT_COLORS = [
     "#FFFFFF",
     "#000000",
@@ -61,6 +66,7 @@ const MODEL = {
         carOptions: [DEFAULT_CAR_OPTIONS],
         carTires: [DEFAULT_CAR_TIRES],
         carRims: [DEFAULT_CAR_RIMS],
+        view: [DEFAULT_VIEW],
         brandings: [],
         colors: [DEFAULT_COLORS],
         options: [DEFAULT_OPTIONS],
@@ -97,6 +103,10 @@ const UPDATER = {
             MODEL.insert("carRims", rims);
             DRAWER.draw("carRims");
         },
+        newView: function (view) {
+            MODEL.insert("view", view);
+            DRAWER.draw("view");
+        },
         newBrandings: function (brandings) {
             MODEL.insert("brandings", brandings);
             DRAWER.draw("brandings");
@@ -130,6 +140,9 @@ const DRAWER = {
         },
         carRims: function () {
             toggleClassByClassName("rim", "rim--selected", "carRims");
+        },
+        view: function () {
+            toggleClassByClassName("view", "view--selected", "view");
         },
         brandings: function () {
             const brandings = MODEL.read("brandings");
@@ -184,11 +197,33 @@ async function retrieveBrandings() {
 // SETUP
 // SETUP
 function app() {
+    drawDefaults();
     attachEventListeners();
     retrieveBrandings();
 }
 
+function drawDefaults() {
+    Object.keys(DRAWER.drawers).filter((drawer) => {
+        return drawer !== "brandings";
+    }).map((drawer) => {
+        DRAWER.drawers[drawer]();
+    });
+}
+
 function attachEventListeners() {
+    const cameraSelectorBack = document.getElementById("cameraSelectorBack");
+    cameraSelectorBack.addEventListener("click", (event) => {
+        UPDATER.update("newView", "view--back");
+    });
+    const cameraSelectorSide = document.getElementById("cameraSelectorSide");
+    cameraSelectorSide.addEventListener("click", (event) => {
+        UPDATER.update("newView", "view--side");
+    });
+    const cameraSelectorFront = document.getElementById("cameraSelectorFront");
+    cameraSelectorFront.addEventListener("click", (event) => {
+        UPDATER.update("newView", "view--front");
+    });
+
     const radiosColor = toArray(document.querySelectorAll("input[name='color'"));
     radiosColor.map((radio) => {
         radio.addEventListener("click", (event) => {
@@ -215,7 +250,11 @@ function attachEventListeners() {
 // HELPERS
 // HELPERS
 function toArray(collection) {
-    return [].slice.call(collection);
+    try {
+        return [].slice.call(collection);
+    } catch (error) {
+        return [];
+    }
 }
 
 function toggleClassByClassName(targetClass, toggleClass, modelKey) {
