@@ -12,6 +12,10 @@
     </head>
 
     <body>
+        <div id="errorBar" class="error">
+            <span id="errorMessage" class="error-message"></span>
+            <span id="errorClose" class="error-close">X</span>
+        </div>
         <div class="content">
             <section class="explanation">
                 <h1 class="title">NO WHEEL LEFT BEHIND</h1>
@@ -129,7 +133,7 @@
                     <h3 class="heading">Color</h3>
                     <ul class="radio-list">
                         <li class="radio-list-item">
-                            <input id="colorTeal" type="radio" name="color" value="#628395">
+                            <input id="colorTeal" type="radio" name="color" value="#628395" checked>
                             <label class="radio-label" for="colorTeal">Teal</label>
                         </li>
                         <li class="radio-list-item">
@@ -150,7 +154,7 @@
                             <label class="radio-label" for="tireGoodyear">Goodyear</label>
                         </li>
                         <li class="radio-list-item">
-                            <input id="tireMediumyear" type="radio" name="tire" value="#D3C1C3">
+                            <input id="tireMediumyear" type="radio" name="tire" value="#D3C1C3" checked>
                             <label class="radio-label" for="tireMediumyear">Mediumyear</label>
                         </li>
                         <li class="radio-list-item">
@@ -167,7 +171,7 @@
                             <label class="radio-label" for="rimGangster">Gangster</label>
                         </li>
                         <li class="radio-list-item">
-                            <input id="rimBiblical" type="radio" name="rim" value="rim--biblical">
+                            <input id="rimBiblical" type="radio" name="rim" value="rim--biblical" checked>
                             <label class="radio-label" for="rimBiblical">Biblical</label>
                         </li>
                         <li class="radio-list-item">
@@ -182,7 +186,7 @@
                         <li class="check-list-item">
                             <label class="check-label" for="optionRadio">
                                 Radio
-                                <input id="optionRadio" type="checkbox" name="radio">
+                                <input id="optionRadio" type="checkbox" name="radio" checked>
                                 <span class="check-slider"></span>
                             </label>
                         </li>
@@ -204,7 +208,7 @@
                 </div>
             </section>
             <section class="customization customization--front view view--front">
-                <div class="customize customize--branding">
+                <div id="customizeBranding" class="customize customize--branding">
                     <h3 class="heading">Branding</h3>
                     <ul id="radioListBrandings" class="radio-list">
                     </ul>

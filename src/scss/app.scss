@@ -27,26 +27,6 @@
     padding: 0;
 }
 
-/* MEDIA */
-
-/* MEDIA */
-
-/* MEDIA */
-
-@media screen and (orientation: landscape) {}
-
-@media screen and (orientation: portrait) {
-    .content {
-        height: 95.75rem;
-    }
-    .explanation {
-        height: 13.75rem;
-    }
-    .customization {
-        height: 25rem;
-    }
-}
-
 /* GENERAL */
 
 /* GENERAL */
@@ -59,8 +39,7 @@ body {
     height: 100%;
 }
 
-h1,
-h2 {
+h1 {
     font-weight: bold;
 }
 
@@ -82,12 +61,12 @@ input[type="text"] {
 }
 
 input[type="radio"] {
-    width: 0;
-    height: 0;
+    display: none;
     cursor: pointer;
-    &:before {
+    & + .radio-label:before {
         position: absolute;
         top: 1.5rem;
+        left: 0;
         width: 1rem;
         height: 1rem;
         background-color: $color-white;
@@ -95,16 +74,15 @@ input[type="radio"] {
         border-radius: 50%;
         content: "";
     }
-    &:checked:before {
+    &:checked + .radio-label:before {
         background-color: $color-blue;
     }
 }
 
 input[type="checkbox"] {
-    width: 0;
-    height: 0;
+    display: none;
     cursor: pointer;
-    &:checked~.check-slider {
+    &:checked ~ .check-slider {
         background-color: $color-blue;
         &:before {
             transform: translateX(2rem);
@@ -149,12 +127,10 @@ input[type="checkbox"] {
 
 .check-list {
     @extend .radio-list;
-    /*width: 23.5rem;*/
 }
 
 .check-list-item {
     @extend .radio-list-item;
-    /*width: 22.5rem;*/
 }
 
 .check-label {
@@ -177,9 +153,9 @@ input[type="checkbox"] {
         left: 0.375rem;
         width: 1.25rem;
         height: 1.25rem;
-        background-color: #F2EFEA;
+        background-color: #f2efea;
         border-radius: 50%;
-        transition: 0.5s;
+        transition: 0.25s;
         content: "";
     }
 }
@@ -189,6 +165,30 @@ input[type="checkbox"] {
 /* CONTENT */
 
 /* CONTENT */
+
+.error {
+    @include center-flex(nowrap);
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5rem;
+    background-color: $color-red;
+    z-index: $depth-error;
+    &.error--occured {
+        display: flex;
+    }
+    & > .error-message {
+        font-size: $font-size-list;
+    }
+    & > .error-close {
+        margin-left: $margin-default;
+        font-size: $font-size-heading;
+        user-select: none;
+        cursor: pointer;
+    }
+}
 
 .content {
     position: relative;
@@ -216,14 +216,14 @@ input[type="checkbox"] {
     top: 18.75rem;
     width: 90rem;
     height: 50rem;
-    &>* {
+    & > * {
         position: absolute;
         border-radius: $border-radius-default;
     }
-    &>.car-color {
+    & > .car-color {
         background-color: $color-white;
     }
-    &>.car-roof {
+    & > .car-roof {
         display: inline-block;
         top: 0;
         border-top: $border-width-car solid $color-black;
@@ -247,14 +247,14 @@ input[type="checkbox"] {
             transform: rotate(50deg);
         }
     }
-    &>.car-window {
+    & > .car-window {
         top: 1.5rem;
         width: 12.5%;
         height: calc(29% - 2rem);
         background-color: $color-white;
         border: $border-width-car solid $color-black;
         z-index: $depth-car-details;
-        &>* {
+        & > * {
             border-radius: $border-radius-default;
         }
         &.car-window--back {
@@ -263,7 +263,7 @@ input[type="checkbox"] {
         &.car-window--front {
             right: 38.5%;
         }
-        &>.car-window-angled {
+        & > .car-window-angled {
             position: absolute;
             background-color: $color-white;
             &.car-window-angled--back {
@@ -283,7 +283,7 @@ input[type="checkbox"] {
                 border-right: $border-width-car solid $color-black;
             }
         }
-        &>.car-window-connector {
+        & > .car-window-connector {
             position: absolute;
             bottom: -1rem;
             background-color: $color-white;
@@ -303,7 +303,7 @@ input[type="checkbox"] {
             }
         }
     }
-    &>.car-body {
+    & > .car-body {
         top: 30%;
         left: 2.5%;
         width: calc(95% - 2rem);
@@ -315,7 +315,7 @@ input[type="checkbox"] {
             left: 12.5%;
             width: calc(75% - 2rem);
         }
-        &>.car-light {
+        & > .car-light {
             position: absolute;
             top: -1rem;
             width: 7.5%;
@@ -351,7 +351,7 @@ input[type="checkbox"] {
                 content: "";
             }
         }
-        &>.car-license-plate {
+        & > .car-license-plate {
             @include center-x(absolute);
             @include center-flex(nowrap);
             bottom: 10%;
@@ -364,7 +364,7 @@ input[type="checkbox"] {
             font-size: $font-size-heading;
             z-index: $depth-car-details;
         }
-        &>.car-grill {
+        & > .car-grill {
             @include center(absolute);
             @include center-flex(nowrap);
             width: 50%;
@@ -373,7 +373,7 @@ input[type="checkbox"] {
             border: $border-width-car solid $color-black;
             border-radius: $border-radius-default;
             z-index: $depth-car-details;
-            &>.car-grill-part {
+            & > .car-grill-part {
                 flex: 10%;
                 width: 1rem;
                 height: 100%;
@@ -383,7 +383,7 @@ input[type="checkbox"] {
                     margin-right: 2rem;
                 }
             }
-            &>.brandings {
+            & > .brandings {
                 @include center-flex(nowrap);
                 position: absolute;
                 top: 0;
@@ -391,7 +391,7 @@ input[type="checkbox"] {
                 width: 100%;
                 height: 100%;
                 background-color: initial;
-                &>.branding {
+                & > .branding {
                     display: none;
                     width: 18.5%;
                     padding: $padding-minimal;
@@ -405,7 +405,7 @@ input[type="checkbox"] {
             }
         }
     }
-    &>.car-door {
+    & > .car-door {
         top: 17.5%;
         height: 52.5%;
         border: $border-width-car solid $color-black;
@@ -420,7 +420,7 @@ input[type="checkbox"] {
             right: 31.5%;
             width: 19.5%;
         }
-        &>.car-door-handle {
+        & > .car-door-handle {
             position: absolute;
             left: 10%;
             width: 5rem;
@@ -435,7 +435,7 @@ input[type="checkbox"] {
             }
         }
     }
-    &>.car-bumper {
+    & > .car-bumper {
         top: 67%;
         width: calc(100% - 2rem);
         height: 12.5%;
@@ -447,23 +447,24 @@ input[type="checkbox"] {
             width: calc(80% - 2rem);
         }
     }
-    &>.car-wheel-housing {
+    & > .car-wheel-housing {
         top: 50%;
         width: 10%;
         height: 35%;
         border: $border-width-car solid $color-black;
         border-radius: $border-radius-default;
+        z-index: $depth-lowest;
         &.car-wheel-housing--right {
-            left: 5%;
+            left: 10%;
         }
         &.car-wheel-housing--left {
-            right: 5%;
+            right: 10%;
         }
     }
-    &>.car-wheel {
+    & > .car-wheel {
         bottom: 0;
         width: 20%;
-        border: 1rem solid $color-black;
+        border: $border-width-car solid $color-black;
         border-radius: 50%;
         &.car-wheel-color {
             background-color: $color-white;
@@ -480,10 +481,10 @@ input[type="checkbox"] {
             content: "";
         }
     }
-    &>.car-wheel-rim {
+    & > .car-wheel-rim {
         bottom: 4.25%;
         width: 15%;
-        border: 1rem solid $color-black;
+        border: $border-width-car solid $color-black;
         border-radius: 50%;
         background-color: $color-white;
         &.car-wheel-rim--back {
@@ -498,13 +499,13 @@ input[type="checkbox"] {
             content: "";
         }
     }
-    &>.rim {
+    & > .rim {
         display: none;
         bottom: 6.25%;
         width: 15%;
         border-radius: 50%;
         background-color: $color-white;
-        &>* {
+        & > * {
             border-radius: $border-radius-default;
         }
         &.rim--selected {
@@ -522,20 +523,20 @@ input[type="checkbox"] {
             content: "";
         }
         &.rim--gangster {
-            &>.rim--gangster-sign {
+            & > .rim--gangster-sign {
                 @include center(absolute);
                 font-size: 14.5rem;
             }
         }
         &.rim--biblical {
-            &>.rim--biblical-vertical {
+            & > .rim--biblical-vertical {
                 @include center-x(absolute);
                 top: -5%;
                 width: 1rem;
                 height: 110%;
                 background-color: $color-black;
             }
-            &>.rim--biblical-horizontal {
+            & > .rim--biblical-horizontal {
                 position: absolute;
                 top: 3rem;
                 width: 100%;
@@ -544,22 +545,22 @@ input[type="checkbox"] {
             }
         }
         &.rim--spokes {
-            &>.rim--spokes-30 {
+            & > .rim--spokes-30 {
                 @include rim--spokes-spoke(30deg);
             }
-            &>.rim--spokes-60 {
+            & > .rim--spokes-60 {
                 @include rim--spokes-spoke(60deg);
             }
-            &>.rim--spokes-90 {
+            & > .rim--spokes-90 {
                 @include rim--spokes-spoke(90deg);
             }
-            &>.rim--spokes-120 {
+            & > .rim--spokes-120 {
                 @include rim--spokes-spoke(120deg);
             }
-            &>.rim--spokes-150 {
+            & > .rim--spokes-150 {
                 @include rim--spokes-spoke(150deg);
             }
-            &>.rim--spokes-180 {
+            & > .rim--spokes-180 {
                 @include rim--spokes-spoke(180deg);
             }
         }
@@ -602,6 +603,7 @@ input[type="checkbox"] {
 .camera-selector-description {
     position: absolute;
     font-size: $font-size-list;
+    text-decoration: underline;
     user-select: none;
     &:hover,
     .camera-selector-description--selected {
@@ -612,7 +614,7 @@ input[type="checkbox"] {
         left: -7rem;
     }
     &.camera-selector-description--side {
-        top: -3rem;
+        top: -3.5rem;
         left: -2rem;
     }
     &.camera-selector-description--front {
@@ -640,5 +642,8 @@ input[type="checkbox"] {
     display: inline-block;
     &:not(:last-child) {
         margin-right: $margin-default;
+    }
+    &.customize--disabled {
+        display: none;
     }
 }

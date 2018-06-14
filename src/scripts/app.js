@@ -12,47 +12,24 @@ const DEFAULT_CAR_OPTIONS = ["Radio"];
 const DEFAULT_CAR_TIRES = "#D3C1C3";
 const DEFAULT_CAR_RIMS = "rim--biblical";
 const DEFAULT_VIEW = "view--side";
-const DEFAULT_BRANDINGS = [{
-    make: "",
-    logoUrl: ""
-}];
-const DEFAULT_COLORS = [
-    "#FFFFFF",
-    "#000000",
-];
-const DEFAULT_OPTIONS = [
-    "Radio",
-    "Air conditioning",
-    "Heatad seats"
-];
-const DEFAULT_TIRES = [
-    "Goodyear",
-    "Badyear",
-    "Averageyear"
-];
-const DEFAULT_RIMS = [
-    "rim-design--plain",
-    "rim-design--biblical",
-    "rim-design--spiral"
-];
 
 // CORE LOGIC
 // CORE LOGIC
 // CORE LOGIC
 const MODEL = {
-    read: function (key) {
+    read: function(key) {
         if (this.history.hasOwnProperty(key)) {
             const history = this.history[key];
             if (history.length > 0) {
                 return history[history.length - 1];
             } else {
-                return false;
+                return null;
             }
         } else {
-            return false;
+            return null;
         }
     },
-    insert: function (key, value) {
+    insert: function(key, value) {
         if (this.history.hasOwnProperty(key)) {
             const history = this.history[key];
             history.push(value);
@@ -62,23 +39,21 @@ const MODEL = {
         }
     },
     history: {
+        errorMessage: [],
+        errorOccured: [],
+        view: [DEFAULT_VIEW],
+        brandings: [],
         carLicensePlate: [DEFAULT_CAR_LICENSE_PLATE],
         carBranding: [DEFAULT_CAR_BRANDING],
         carColor: [DEFAULT_CAR_COLOR],
         carOptions: [DEFAULT_CAR_OPTIONS],
         carTires: [DEFAULT_CAR_TIRES],
-        carRims: [DEFAULT_CAR_RIMS],
-        view: [DEFAULT_VIEW],
-        brandings: [],
-        colors: [DEFAULT_COLORS],
-        options: [DEFAULT_OPTIONS],
-        tires: [DEFAULT_TIRES],
-        rims: [DEFAULT_RIMS]
+        carRims: [DEFAULT_CAR_RIMS]
     }
 };
 
 const UPDATER = {
-    update: function (key, value) {
+    update: function(key, value) {
         if (this.updaters.hasOwnProperty(key)) {
             const updater = this.updaters[key];
             if (typeof value === "undefined") {
@@ -89,103 +64,151 @@ const UPDATER = {
         }
     },
     updaters: {
-        newCarLicensePlate: function (licensePlate) {
-            MODEL.insert("carLicensePlate", licensePlate.toUpperCase());
-            DRAWER.draw("carLicensePlate");
+        newErrorMessage: function(message) {
+            MODEL.insert("errorMessage", message);
+            DRAWER.draw("errorMessage");
         },
-        newCarBranding: function (branding) {
-            MODEL.insert("carBranding", branding);
-            DRAWER.draw("carBranding");
+        newErrorOccured: function(occured) {
+            MODEL.insert("errorOccured", occured);
+            DRAWER.draw("errorOccured");
         },
-        newCarColor: function (color) {
-            MODEL.insert("carColor", color);
-            DRAWER.draw("carColor");
-        },
-        newCarTires: function (tire) {
-            MODEL.insert("carTires", tire);
-            DRAWER.draw("carTires");
-        },
-        newCarRims: function (rims) {
-            MODEL.insert("carRims", rims);
-            DRAWER.draw("carRims");
-        },
-        newView: function (view) {
+        newView: function(view) {
             MODEL.insert("view", view);
             DRAWER.draw("view");
         },
-        newBrandings: function (brandings) {
+        newBrandings: function(brandings) {
             MODEL.insert("brandings", brandings);
             DRAWER.draw("brandings");
+            if (brandings.length === 0) {
+                DRAWER.draw("brandingsEmpty");
+            }
+        },
+        newCarLicensePlate: function(licensePlate) {
+            MODEL.insert("carLicensePlate", licensePlate.toUpperCase());
+            DRAWER.draw("carLicensePlate");
+        },
+        newCarBranding: function(branding) {
+            MODEL.insert("carBranding", branding);
+            DRAWER.draw("carBranding");
+        },
+        newCarColor: function(color) {
+            MODEL.insert("carColor", color);
+            DRAWER.draw("carColor");
+        },
+        newCarTires: function(tire) {
+            MODEL.insert("carTires", tire);
+            DRAWER.draw("carTires");
+        },
+        newCarRims: function(rims) {
+            MODEL.insert("carRims", rims);
+            DRAWER.draw("carRims");
         }
     }
 };
 
 const DRAWER = {
-    draw: function (key) {
+    draw: function(key) {
         if (this.drawers.hasOwnProperty(key)) {
             this.drawers[key]();
         }
     },
     drawers: {
-        carLicensePlate: function () {
-            const licensePlateOutput = document.getElementById("licensePlateOutput");
-            licensePlateOutput.textContent = MODEL.read("carLicensePlate");
+        errorMessage: function() {
+            const errorMessageElement = document.getElementById("errorMessage");
+            const errorMessage = MODEL.read("errorMessage");
+            if (errorMessageElement !== null && errorMessage !== null) {
+                errorMessageElement.textContent = errorMessage;
+            }
         },
-        carBranding: function () {
-            toggleClassByClassName("branding", "branding--selected", "carBranding");
+        errorOccured: function() {
+            const errorBar = document.getElementById("errorBar");
+            const errorOccured = MODEL.read("errorOccured");
+            if (errorBar !== null && errorOccured !== null) {
+                errorBar.classList.remove("error--occured");
+                errorBar.classList.add(errorOccured);
+            }
         },
-        carColor: function () {
-            const coloredElements = toArray(document.getElementsByClassName("car-color"));
-            const color = MODEL.read("carColor");
-            coloredElements.map((element) => {
-                element.style.backgroundColor = color;
-            });
-        },
-        carTires: function () {
-            const tires = toArray(document.getElementsByClassName("car-wheel-color"));
-            const tireType = MODEL.read("carTires");
-            tires.map((tire) => {
-                tire.style.backgroundColor = tireType;
-            });
-        },
-        carRims: function () {
-            toggleClassByClassName("rim", "rim--selected", "carRims");
-        },
-        view: function () {
+        view: function() {
             toggleClassByClassName("view", "view--selected", "view");
         },
-        brandings: function () {
+        brandings: function() {
             const brandings = MODEL.read("brandings");
             const brandingsContainer = document.getElementById("brandings");
             const brandingsList = document.getElementById("radioListBrandings");
-            brandings.map((branding) => {
-                const id = "branding" + branding.make;
-                const className = "branding--" + branding.make.toLowerCase();
-                const image = createElementWithClassesAttributes("img", ["branding", className], {
-                    src: branding.logoUrl
+            if (brandings !== null && brandingsContainer !== null && brandingsList !== null) {
+                brandings.map(branding => {
+                    const id = "branding" + branding.make;
+                    const className = "branding--" + branding.make.toLowerCase();
+                    const image = createElementWithClassesAttributes("img", ["branding", className], {
+                        src: branding.logoUrl
+                    });
+                    const listItem = createElementWithClasses("li", ["radio-list-item"]);
+                    const radio = createElementWithAttributes("input", {
+                        id: id,
+                        type: "radio",
+                        name: "branding",
+                        value: className
+                    });
+                    const label = createElementWithClassesAttributesContent(
+                        "label",
+                        ["radio-label"],
+                        {
+                            for: id
+                        },
+                        branding.make
+                    );
+
+                    radio.addEventListener("click", event => {
+                        UPDATER.update("newCarBranding", event.target.value);
+                    });
+
+                    listItem.appendChild(radio);
+                    listItem.appendChild(label);
+
+                    brandingsList.appendChild(listItem);
+
+                    brandingsContainer.appendChild(image);
                 });
-                const listItem = createElementWithClasses("li", ["radio-list-item"]);
-                const radio = createElementWithAttributes("input", {
-                    id: id,
-                    type: "radio",
-                    name: "branding",
-                    value: className
+            }
+        },
+        brandingsEmpty: function() {
+            const customizeBranding = document.getElementById("customizeBranding");
+            if (customizeBranding !== null) {
+                customizeBranding.classList.add("customize--disabled");
+            }
+        },
+        carLicensePlate: function() {
+            const licensePlateOutput = document.getElementById("licensePlateOutput");
+            const licensePlate = MODEL.read("carLicensePlate");
+            if (licensePlateOutput !== null && licensePlate !== null) {
+                licensePlateOutput.textContent = licensePlate;
+            }
+        },
+        carBranding: function() {
+            toggleClassByClassName("branding", "branding--selected", "carBranding");
+        },
+        carColor: function() {
+            const coloredCollection = document.getElementsByClassName("car-color");
+            const color = MODEL.read("carColor");
+            if (coloredCollection !== null && color !== null) {
+                const coloredElements = toArray(coloredCollection);
+                coloredElements.map(element => {
+                    element.style.backgroundColor = color;
                 });
-                const label = createElementWithClassesAttributesContent("label", ["radio-label"], {
-                    for: id
-                }, branding.make);
-
-                radio.addEventListener("click", (event) => {
-                    UPDATER.update("newCarBranding", event.target.value);
+            }
+        },
+        carTires: function() {
+            const tireCollection = document.getElementsByClassName("car-wheel-color");
+            const tireType = MODEL.read("carTires");
+            if (tireCollection !== null && tireType !== null) {
+                const tires = toArray(tireCollection);
+                tires.map(tire => {
+                    tire.style.backgroundColor = tireType;
                 });
-
-                listItem.appendChild(radio);
-                listItem.appendChild(label);
-
-                brandingsList.appendChild(listItem);
-
-                brandingsContainer.appendChild(image);
-            });
+            }
+        },
+        carRims: function() {
+            toggleClassByClassName("rim", "rim--selected", "carRims");
         }
     }
 };
@@ -199,7 +222,12 @@ async function retrieveBrandings() {
         const brandings = await response.json();
         UPDATER.update("newBrandings", brandings);
     } catch (error) {
-        console.log(error);
+        UPDATER.update("newBrandings", []);
+        UPDATER.update(
+            "newErrorMessage",
+            "Unable to retrieve branding data, customizing branding will be unavailable."
+        );
+        UPDATER.update("newErrorOccured", "error--occured");
     }
 }
 
@@ -213,52 +241,77 @@ function app() {
 }
 
 function drawDefaults() {
-    Object.keys(DRAWER.drawers).filter((drawer) => {
-        return drawer !== "brandings";
-    }).map((drawer) => {
-        DRAWER.drawers[drawer]();
-    });
+    Object.keys(DRAWER.drawers)
+        .filter(drawer => {
+            return drawer !== "brandings" && drawer !== "brandingsEmpty";
+        })
+        .map(drawer => {
+            DRAWER.drawers[drawer]();
+        });
 }
 
 function attachEventListeners() {
+    const errorClose = document.getElementById("errorClose");
+    if (errorClose !== null) {
+        errorClose.addEventListener("click", event => {
+            UPDATER.update("newErrorOccured", "error--seen");
+        });
+    }
+
     const cameraSelectorBack = document.getElementById("cameraSelectorBack");
-    cameraSelectorBack.addEventListener("click", (event) => {
-        UPDATER.update("newView", "view--back");
-    });
+    if (cameraSelectorBack !== null) {
+        cameraSelectorBack.addEventListener("click", event => {
+            UPDATER.update("newView", "view--back");
+        });
+    }
+
     const cameraSelectorSide = document.getElementById("cameraSelectorSide");
-    cameraSelectorSide.addEventListener("click", (event) => {
-        UPDATER.update("newView", "view--side");
-    });
+    if (cameraSelectorSide !== null) {
+        cameraSelectorSide.addEventListener("click", event => {
+            UPDATER.update("newView", "view--side");
+        });
+    }
+
     const cameraSelectorFront = document.getElementById("cameraSelectorFront");
-    cameraSelectorFront.addEventListener("click", (event) => {
-        UPDATER.update("newView", "view--front");
-    });
+    if (cameraSelectorFront !== null) {
+        cameraSelectorFront.addEventListener("click", event => {
+            UPDATER.update("newView", "view--front");
+        });
+    }
 
     const textLicensePlate = document.getElementById("licensePlateInput");
-    textLicensePlate.addEventListener("input", (event) => {
-        UPDATER.update("newCarLicensePlate", event.target.value);
-    });
+    if (textLicensePlate !== null) {
+        textLicensePlate.addEventListener("input", event => {
+            UPDATER.update("newCarLicensePlate", event.target.value);
+        });
+    }
 
     const radiosColor = toArray(document.querySelectorAll("input[name='color'"));
-    radiosColor.map((radio) => {
-        radio.addEventListener("click", (event) => {
-            UPDATER.update("newCarColor", event.target.value);
+    if (radiosColor !== null) {
+        radiosColor.map(radio => {
+            radio.addEventListener("click", event => {
+                UPDATER.update("newCarColor", event.target.value);
+            });
         });
-    });
+    }
 
     const radiosTires = toArray(document.querySelectorAll("input[name='tire'"));
-    radiosTires.map((radio) => {
-        radio.addEventListener("click", (event) => {
-            UPDATER.update("newCarTires", event.target.value);
+    if (radiosTires !== null) {
+        radiosTires.map(radio => {
+            radio.addEventListener("click", event => {
+                UPDATER.update("newCarTires", event.target.value);
+            });
         });
-    });
+    }
 
     const radiosRim = toArray(document.querySelectorAll("input[name='rim'"));
-    radiosRim.map((radio) => {
-        radio.addEventListener("click", (event) => {
-            UPDATER.update("newCarRims", event.target.value);
+    if (radiosRim !== null) {
+        radiosRim.map(radio => {
+            radio.addEventListener("click", event => {
+                UPDATER.update("newCarRims", event.target.value);
+            });
         });
-    });
+    }
 }
 
 // HELPERS
@@ -274,18 +327,18 @@ function toArray(collection) {
 
 function toggleClassByClassName(targetClass, toggleClass, modelKey) {
     const allElements = toArray(document.getElementsByClassName(targetClass));
-    allElements.map((element) => {
+    allElements.map(element => {
         element.classList.remove(toggleClass);
     });
     const targetElements = toArray(document.getElementsByClassName(MODEL.read(modelKey)));
-    targetElements.map((element) => {
+    targetElements.map(element => {
         element.classList.add(toggleClass);
     });
 }
 
 function createElementWithClasses(tagName, classes) {
     const element = document.createElement(tagName);
-    classes.map((className) => {
+    classes.map(className => {
         element.classList.add(className);
     });
     return element;
@@ -293,7 +346,7 @@ function createElementWithClasses(tagName, classes) {
 
 function createElementWithAttributes(tagName, attributes) {
     const element = document.createElement(tagName);
-    Object.keys(attributes).map((key) => {
+    Object.keys(attributes).map(key => {
         element.setAttribute(key, attributes[key]);
     });
     return element;
@@ -301,10 +354,10 @@ function createElementWithAttributes(tagName, attributes) {
 
 function createElementWithClassesAttributes(tagName, classes, attributes) {
     const element = document.createElement(tagName);
-    classes.map((className) => {
+    classes.map(className => {
         element.classList.add(className);
     });
-    Object.keys(attributes).map((key) => {
+    Object.keys(attributes).map(key => {
         element.setAttribute(key, attributes[key]);
     });
     return element;
@@ -312,16 +365,15 @@ function createElementWithClassesAttributes(tagName, classes, attributes) {
 
 function createElementWithClassesAttributesContent(tagName, classes, attributes, content) {
     const element = document.createElement(tagName);
-    classes.map((className) => {
+    classes.map(className => {
         element.classList.add(className);
     });
-    Object.keys(attributes).map((key) => {
+    Object.keys(attributes).map(key => {
         element.setAttribute(key, attributes[key]);
     });
     element.textContent = content;
     return element;
 }
-
 
 // START
 // START
