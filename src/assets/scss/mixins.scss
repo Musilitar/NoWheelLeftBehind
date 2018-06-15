@@ -18,12 +18,12 @@
     flex-wrap: $wrap;
 }
 
-@mixin rim--spokes-spoke($rotation) {
+@mixin rotated-part($thickness, $rotation, $color) {
     position: absolute;
     top: -5%;
     left: 47.5%;
-    width: 1rem;
+    width: $thickness;
     height: 110%;
-    background-color: $color-black;
+    background-color: $color;
     transform: rotate($rotation);
 }

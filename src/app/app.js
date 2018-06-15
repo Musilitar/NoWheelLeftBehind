@@ -2,16 +2,16 @@
 // DATA
 // DATA
 const URL_CAR_BRANDINGS = "https://car-api.firebaseio.com/rest.json";
+const DEFAULT_VIEW = "view--side";
 const DEFAULT_CAR_LICENSE_PLATE = "0MGWTFBBQ";
 const DEFAULT_CAR_BRANDING = {
     make: "Audi",
     logoUrl: "https://seeklogo.com/images/A/Audi-logo-70A7072C07-seeklogo.com.png"
 };
 const DEFAULT_CAR_COLOR = "#628395";
-const DEFAULT_CAR_OPTIONS = ["Radio"];
+const DEFAULT_CAR_OPTIONS = ["optionAirConditioning"];
 const DEFAULT_CAR_TIRES = "#D3C1C3";
 const DEFAULT_CAR_RIMS = "rim--biblical";
-const DEFAULT_VIEW = "view--side";
 
 // CORE LOGIC
 // CORE LOGIC
@@ -61,6 +61,9 @@ const UPDATER = {
             } else {
                 updater(value);
             }
+            return true;
+        } else {
+            return false;
         }
     },
     updaters: {
@@ -84,7 +87,8 @@ const UPDATER = {
             }
         },
         newCarLicensePlate: function(licensePlate) {
-            MODEL.insert("carLicensePlate", licensePlate.toUpperCase());
+            const licensePlateAdjusted = licensePlate.slice(0, 9).toUpperCase();
+            MODEL.insert("carLicensePlate", licensePlateAdjusted);
             DRAWER.draw("carLicensePlate");
         },
         newCarBranding: function(branding) {
@@ -94,6 +98,19 @@ const UPDATER = {
         newCarColor: function(color) {
             MODEL.insert("carColor", color);
             DRAWER.draw("carColor");
+        },
+        newCarOptions: function(option) {
+            const currentOptions = MODEL.read("carOptions");
+            if (currentOptions.includes(option)) {
+                const newOptions = currentOptions.filter(currentOption => {
+                    return currentOption !== option;
+                });
+                MODEL.insert("carOptions", newOptions);
+            } else {
+                const newOptions = currentOptions.concat([option]);
+                MODEL.insert("carOptions", newOptions);
+            }
+            DRAWER.draw("carOptions");
         },
         newCarTires: function(tire) {
             MODEL.insert("carTires", tire);
@@ -140,7 +157,8 @@ const DRAWER = {
                     const id = "branding" + branding.make;
                     const className = "branding--" + branding.make.toLowerCase();
                     const image = createElementWithClassesAttributes("img", ["branding", className], {
-                        src: branding.logoUrl
+                        src: branding.logoUrl,
+                        alt: branding.make
                     });
                     const listItem = createElementWithClasses("li", ["radio-list-item"]);
                     const radio = createElementWithAttributes("input", {
@@ -194,6 +212,22 @@ const DRAWER = {
                 const coloredElements = toArray(coloredCollection);
                 coloredElements.map(element => {
                     element.style.backgroundColor = color;
+                });
+            }
+        },
+        carOptions: function() {
+            const optionCollection = document.getElementsByClassName("option");
+            const options = MODEL.read("carOptions");
+            if (optionCollection !== null && options !== null) {
+                const optionElements = toArray(optionCollection);
+                optionElements.map(optionElement => {
+                    optionElement.classList.remove("option--selected");
+                });
+                options.map(option => {
+                    const optionToSelect = document.getElementById(option);
+                    if (optionToSelect !== null) {
+                        optionToSelect.classList.add("option--selected");
+                    }
                 });
             }
         },
@@ -286,7 +320,7 @@ function attachEventListeners() {
         });
     }
 
-    const radiosColor = toArray(document.querySelectorAll("input[name='color'"));
+    const radiosColor = toArray(document.querySelectorAll("input[name='color']"));
     if (radiosColor !== null) {
         radiosColor.map(radio => {
             radio.addEventListener("click", event => {
@@ -295,7 +329,17 @@ function attachEventListeners() {
         });
     }
 
-    const radiosTires = toArray(document.querySelectorAll("input[name='tire'"));
+    const checkboxesOptionsCollection = document.querySelectorAll("input[name='option']");
+    if (checkboxesOptionsCollection !== null) {
+        const checkboxesOptions = toArray(checkboxesOptionsCollection);
+        checkboxesOptions.map(checkbox => {
+            checkbox.addEventListener("click", event => {
+                UPDATER.update("newCarOptions", event.target.value);
+            });
+        });
+    }
+
+    const radiosTires = toArray(document.querySelectorAll("input[name='tire']"));
     if (radiosTires !== null) {
         radiosTires.map(radio => {
             radio.addEventListener("click", event => {
@@ -304,7 +348,7 @@ function attachEventListeners() {
         });
     }
 
-    const radiosRim = toArray(document.querySelectorAll("input[name='rim'"));
+    const radiosRim = toArray(document.querySelectorAll("input[name='rim']"));
     if (radiosRim !== null) {
         radiosRim.map(radio => {
             radio.addEventListener("click", event => {

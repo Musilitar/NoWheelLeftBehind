@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1" />
         <meta name="description" content="Customize your car and leave no wheel behind!" />
         <title>NWLB - No Wheel Left Behind</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
         <link rel="preload" href="font.woff2" as="font" crossorigin="anonymous">
         <link rel="stylesheet" href="app.css">
         <script src="app.js" charset="utf-8" defer></script>
@@ -16,11 +18,11 @@
             <span id="errorMessage" class="error-message"></span>
             <span id="errorClose" class="error-close">X</span>
         </div>
-        <div class="content">
-            <section class="explanation">
+        <main class="content">
+            <header class="explanation">
                 <h1 class="title">NO WHEEL LEFT BEHIND</h1>
                 <h2 class="subtitle">Customize your car and leave no wheel behind!</h2>
-            </section>
+            </header>
             <section class="car view view--back">
                 <div class="car-body car-body--front car-color">
                     <div class="car-light car-light--back-right"></div>
@@ -58,6 +60,40 @@
                 <div class="car-wheel-rim car-wheel-rim--back"></div>
                 <div class="car-wheel car-wheel--front car-wheel-color"></div>
                 <div class="car-wheel-rim car-wheel-rim--front"></div>
+                <div id="optionRadio" class="option option--radio">
+                    <div class="radio-wave radio-wave--small"></div>
+                    <div class="radio-wave radio-wave--medium"></div>
+                    <div class="radio-wave radio-wave--big"></div>
+                </div>
+                <div id="optionHeatedSeats" class="option option--heated-seats">
+                    <div class="heated-seat"></div>
+                </div>
+                <div id="optionAirConditioning" class="option option--air-conditioning">
+                    <div class="frost-flake">
+                        <div class="frost-flake-45"></div>
+                        <div class="frost-flake-90"></div>
+                        <div class="frost-flake-135"></div>
+                        <div class="frost-flake-180"></div>
+                    </div>
+                    <div class="frost-flake">
+                        <div class="frost-flake-45"></div>
+                        <div class="frost-flake-90"></div>
+                        <div class="frost-flake-135"></div>
+                        <div class="frost-flake-180"></div>
+                    </div>
+                    <div class="frost-flake">
+                        <div class="frost-flake-45"></div>
+                        <div class="frost-flake-90"></div>
+                        <div class="frost-flake-135"></div>
+                        <div class="frost-flake-180"></div>
+                    </div>
+                    <div class="frost-flake">
+                        <div class="frost-flake-45"></div>
+                        <div class="frost-flake-90"></div>
+                        <div class="frost-flake-135"></div>
+                        <div class="frost-flake-180"></div>
+                    </div>
+                </div>
                 <div class="rim rim--back rim--gangster">
                     <div class="rim--gangster-sign">$</div>
                 </div>
@@ -125,7 +161,7 @@
             <section class="customization customization--back view view--back">
                 <div class="customize customize--branding">
                     <h3 class="heading">License plate</h3>
-                    <input id="licensePlateInput" type="text" name="licensePlate" maxlength="9" placeholder="0MGWTFBBQ">
+                    <input id="licensePlateInput" type="text" name="licensePlate" minlength="9" maxlength="9" placeholder="0MGWTFBBQ">
                 </div>
             </section>
             <section class="customization customization--side view view--side">
@@ -184,23 +220,23 @@
                     <h3 class="heading">Options</h3>
                     <ul class="check-list">
                         <li class="check-list-item">
-                            <label class="check-label" for="optionRadio">
+                            <label class="check-label">
                                 Radio
-                                <input id="optionRadio" type="checkbox" name="radio" checked>
+                                <input type="checkbox" name="option" value="optionRadio">
                                 <span class="check-slider"></span>
                             </label>
                         </li>
                         <li class="check-list-item">
-                            <label class="check-label" for="optionAC">
+                            <label class="check-label">
                                 Air conditioning
-                                <input id="optionAC" type="checkbox" name="AC">
+                                <input type="checkbox" name="option" value="optionAirConditioning" checked>
                                 <span class="check-slider"></span>
                             </label>
                         </li>
                         <li class="check-list-item">
-                            <label class="check-label" for="optionHeated">
+                            <label class="check-label">
                                 Heated seats
-                                <input id="optionHeated" type="checkbox" name="heated">
+                                <input type="checkbox" name="option" value="optionHeatedSeats">
                                 <span class="check-slider"></span>
                             </label>
                         </li>
@@ -214,7 +250,7 @@
                     </ul>
                 </div>
             </section>
-        </div>
+        </main>
     </body>
 
 </html>
