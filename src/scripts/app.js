@@ -320,7 +320,7 @@ function attachEventListeners() {
         });
     }
 
-    const radiosColor = toArray(document.querySelectorAll("input[name='color'"));
+    const radiosColor = toArray(document.querySelectorAll("input[name=color"));
     if (radiosColor !== null) {
         radiosColor.map(radio => {
             radio.addEventListener("click", event => {
@@ -329,7 +329,7 @@ function attachEventListeners() {
         });
     }
 
-    const checkboxesOptionsCollection = document.querySelectorAll("input[name='option']");
+    const checkboxesOptionsCollection = document.querySelectorAll("input[name=option]");
     if (checkboxesOptionsCollection !== null) {
         const checkboxesOptions = toArray(checkboxesOptionsCollection);
         checkboxesOptions.map(checkbox => {
@@ -339,7 +339,7 @@ function attachEventListeners() {
         });
     }
 
-    const radiosTires = toArray(document.querySelectorAll("input[name='tire'"));
+    const radiosTires = toArray(document.querySelectorAll("input[name=tire"));
     if (radiosTires !== null) {
         radiosTires.map(radio => {
             radio.addEventListener("click", event => {
@@ -348,7 +348,7 @@ function attachEventListeners() {
         });
     }
 
-    const radiosRim = toArray(document.querySelectorAll("input[name='rim'"));
+    const radiosRim = toArray(document.querySelectorAll("input[name=rim"));
     if (radiosRim !== null) {
         radiosRim.map(radio => {
             radio.addEventListener("click", event => {
