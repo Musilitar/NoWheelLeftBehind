@@ -18,11 +18,11 @@
             <span id="errorMessage" class="error-message"></span>
             <span id="errorClose" class="error-close">X</span>
         </div>
-        <div class="content">
-            <section class="explanation">
+        <main class="content">
+            <header class="explanation">
                 <h1 class="title">NO WHEEL LEFT BEHIND</h1>
                 <h2 class="subtitle">Customize your car and leave no wheel behind!</h2>
-            </section>
+            </header>
             <section class="car view view--back">
                 <div class="car-body car-body--front car-color">
                     <div class="car-light car-light--back-right"></div>
@@ -127,7 +127,7 @@
             <section class="customization customization--back view view--back">
                 <div class="customize customize--branding">
                     <h3 class="heading">License plate</h3>
-                    <input id="licensePlateInput" type="text" name="licensePlate" maxlength="9" placeholder="0MGWTFBBQ">
+                    <input id="licensePlateInput" type="text" name="licensePlate" minlength="9" maxlength="9" placeholder="0MGWTFBBQ">
                 </div>
             </section>
             <section class="customization customization--side view view--side">
@@ -216,7 +216,7 @@
                     </ul>
                 </div>
             </section>
-        </div>
+        </main>
     </body>
 
 </html>

@@ -58,6 +58,9 @@ input[type="text"] {
     border-bottom: 0.3rem solid $color-black;
     font-family: $font-family-default;
     font-size: $font-size-list;
+    &:invalid {
+        border-bottom-color: $color-red;
+    }
 }
 
 input[type="radio"] {
@@ -569,7 +572,7 @@ input[type="checkbox"] {
 
 .camera {
     @include center-x(absolute);
-    top: 65rem;
+    top: 66rem;
     width: 10rem;
     height: 5rem;
     z-index: $depth-car-details;

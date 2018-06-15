@@ -61,6 +61,9 @@ const UPDATER = {
             } else {
                 updater(value);
             }
+            return true;
+        } else {
+            return false;
         }
     },
     updaters: {
@@ -84,7 +87,8 @@ const UPDATER = {
             }
         },
         newCarLicensePlate: function(licensePlate) {
-            MODEL.insert("carLicensePlate", licensePlate.toUpperCase());
+            const licensePlateAdjusted = licensePlate.slice(0, 9).toUpperCase();
+            MODEL.insert("carLicensePlate", licensePlateAdjusted);
             DRAWER.draw("carLicensePlate");
         },
         newCarBranding: function(branding) {
@@ -140,7 +144,8 @@ const DRAWER = {
                     const id = "branding" + branding.make;
                     const className = "branding--" + branding.make.toLowerCase();
                     const image = createElementWithClassesAttributes("img", ["branding", className], {
-                        src: branding.logoUrl
+                        src: branding.logoUrl,
+                        alt: branding.make
                     });
                     const listItem = createElementWithClasses("li", ["radio-list-item"]);
                     const radio = createElementWithAttributes("input", {
