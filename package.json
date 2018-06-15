@@ -17,10 +17,10 @@
         "copy:production": "npm run copy:scripts && npm run copy:html && npm run copy:icons && npm run copy:fonts",
         "build:development": "npm run sass:generate && npm run copy:development",
         "build:production": "npm run sass:generate && npm run copy:production && npm run optimize",
-        "watch": "npm run watch:scripts & npm run watch:scss & npm run watch:html",
         "watch:scripts": "onchange \"src/scripts/*.js\" -- npm run copy:scripts",
         "watch:scss": "onchange \"src/scss/**/*.scss\" -- npm run sass:generate",
         "watch:html": "onchange \"src/*.html\" -- npm run copy:html",
+        "watch": "npm run watch:scripts & npm run watch:scss & npm run watch:html",
         "server": "browser-sync start --config \"bs-config.js\""
     },
     "repository": {
