@@ -2,16 +2,16 @@
 // DATA
 // DATA
 const URL_CAR_BRANDINGS = "https://car-api.firebaseio.com/rest.json";
+const DEFAULT_VIEW = "view--side";
 const DEFAULT_CAR_LICENSE_PLATE = "0MGWTFBBQ";
 const DEFAULT_CAR_BRANDING = {
     make: "Audi",
     logoUrl: "https://seeklogo.com/images/A/Audi-logo-70A7072C07-seeklogo.com.png"
 };
 const DEFAULT_CAR_COLOR = "#628395";
-const DEFAULT_CAR_OPTIONS = ["Radio"];
+const DEFAULT_CAR_OPTIONS = ["optionAirConditioning"];
 const DEFAULT_CAR_TIRES = "#D3C1C3";
 const DEFAULT_CAR_RIMS = "rim--biblical";
-const DEFAULT_VIEW = "view--side";
 
 // CORE LOGIC
 // CORE LOGIC
@@ -98,6 +98,19 @@ const UPDATER = {
         newCarColor: function(color) {
             MODEL.insert("carColor", color);
             DRAWER.draw("carColor");
+        },
+        newCarOptions: function(option) {
+            const currentOptions = MODEL.read("carOptions");
+            if (currentOptions.includes(option)) {
+                const newOptions = currentOptions.filter(currentOption => {
+                    return currentOption !== option;
+                });
+                MODEL.insert("carOptions", newOptions);
+            } else {
+                const newOptions = currentOptions.concat([option]);
+                MODEL.insert("carOptions", newOptions);
+            }
+            DRAWER.draw("carOptions");
         },
         newCarTires: function(tire) {
             MODEL.insert("carTires", tire);
@@ -202,6 +215,22 @@ const DRAWER = {
                 });
             }
         },
+        carOptions: function() {
+            const optionCollection = document.getElementsByClassName("option");
+            const options = MODEL.read("carOptions");
+            if (optionCollection !== null && options !== null) {
+                const optionElements = toArray(optionCollection);
+                optionElements.map(optionElement => {
+                    optionElement.classList.remove("option--selected");
+                });
+                options.map(option => {
+                    const optionToSelect = document.getElementById(option);
+                    if (optionToSelect !== null) {
+                        optionToSelect.classList.add("option--selected");
+                    }
+                });
+            }
+        },
         carTires: function() {
             const tireCollection = document.getElementsByClassName("car-wheel-color");
             const tireType = MODEL.read("carTires");
@@ -296,6 +325,16 @@ function attachEventListeners() {
         radiosColor.map(radio => {
             radio.addEventListener("click", event => {
                 UPDATER.update("newCarColor", event.target.value);
+            });
+        });
+    }
+
+    const checkboxesOptionsCollection = document.querySelectorAll("input[name='option']");
+    if (checkboxesOptionsCollection !== null) {
+        const checkboxesOptions = toArray(checkboxesOptionsCollection);
+        checkboxesOptions.map(checkbox => {
+            checkbox.addEventListener("click", event => {
+                UPDATER.update("newCarOptions", event.target.value);
             });
         });
     }

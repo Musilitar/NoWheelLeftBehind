@@ -502,6 +502,88 @@ input[type="checkbox"] {
             content: "";
         }
     }
+    & > .option {
+        display: none;
+        width: 15%;
+        height: 25%;
+        z-index: $depth-car-details;
+        &.option--selected {
+            display: block;
+        }
+        &.option--radio {
+            & > .radio-wave {
+                position: absolute;
+                height: 1rem;
+                transform: rotate(-40deg);
+                border: $border-width-car solid $color-black;
+                border-radius: 50%;
+                &.radio-wave--small {
+                    top: 45%;
+                    left: 60%;
+                    width: 25%;
+                }
+                &.radio-wave--medium {
+                    top: 22.5%;
+                    left: 30%;
+                    width: 50%;
+                }
+                &.radio-wave--big {
+                    width: 75%;
+                }
+            }
+        }
+        &.option--heated-seats {
+            top: 2.5rem;
+            left: 22%;
+            & > .heated-seat {
+                position: absolute;
+                bottom: -1rem;
+                left: 15%;
+                width: 25%;
+                height: 50%;
+                background-color: $color-red;
+                border: $border-width-car solid $color-black;
+                border-radius: $border-radius-default;
+            }
+        }
+        &.option--air-conditioning {
+            top: 2.5rem;
+            right: 37%;
+            & > .frost-flake {
+                position: absolute;
+                width: 27.5%;
+                height: 27.5%;
+                &:nth-child(1) {
+                    top: 2rem;
+                    left: 2rem;
+                }
+                &:nth-child(2) {
+                    top: 2rem;
+                    left: calc(27.5% + 4rem);
+                }
+                &:nth-child(3) {
+                    top: calc(27.5% + 4rem);
+                    left: 2rem;
+                }
+                &:nth-child(4) {
+                    top: calc(27.5% + 4rem);
+                    left: calc(27.5% + 4rem);
+                }
+                & > .frost-flake-45 {
+                    @include rotated-part(0.5rem, 45deg, $color-blue);
+                }
+                & > .frost-flake-90 {
+                    @include rotated-part(0.5rem, 90deg, $color-blue);
+                }
+                & > .frost-flake-135 {
+                    @include rotated-part(0.5rem, 135deg, $color-blue);
+                }
+                & > .frost-flake-180 {
+                    @include rotated-part(0.5rem, 180deg, $color-blue);
+                }
+            }
+        }
+    }
     & > .rim {
         display: none;
         bottom: 6.25%;
@@ -549,22 +631,22 @@ input[type="checkbox"] {
         }
         &.rim--spokes {
             & > .rim--spokes-30 {
-                @include rim--spokes-spoke(30deg);
+                @include rotated-part(1rem, 30deg, $color-black);
             }
             & > .rim--spokes-60 {
-                @include rim--spokes-spoke(60deg);
+                @include rotated-part(1rem, 60deg, $color-black);
             }
             & > .rim--spokes-90 {
-                @include rim--spokes-spoke(90deg);
+                @include rotated-part(1rem, 90deg, $color-black);
             }
             & > .rim--spokes-120 {
-                @include rim--spokes-spoke(120deg);
+                @include rotated-part(1rem, 120deg, $color-black);
             }
             & > .rim--spokes-150 {
-                @include rim--spokes-spoke(150deg);
+                @include rotated-part(1rem, 150deg, $color-black);
             }
             & > .rim--spokes-180 {
-                @include rim--spokes-spoke(180deg);
+                @include rotated-part(1rem, 180deg, $color-black);
             }
         }
     }
